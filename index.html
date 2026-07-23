@@ -54,21 +54,21 @@
 </head>
 <body>
 
-<h1>🎯 Panel Prowadzącego</h1>
+<h1>Panel Prowadzacego</h1>
 <div class="info-bar">
   <span id="roundLabel">Runda 1 / 20</span>
-  <span id="difficultyLabel">Łatwe</span>
+  <span id="difficultyLabel">Latwe</span>
 </div>
 
 <div id="idleScreen">
-  <button onclick="startRound()">▶ Rozpocznij rundę</button>
+  <button onclick="startRound()">Rozpocznij runde</button>
 </div>
 
 <div id="categoriesScreen" style="display:none">
   <p>Wylosowane kategorie:</p>
   <div class="categories" id="offeredCategories"></div>
-  <p id="waitingForPlayer">Czekam na wybór gracza...</p>
-  <button id="showQuestionBtn" style="display:none" onclick="showQuestionToAll()">Wyświetl pytanie</button>
+  <p id="waitingForPlayer">Czekam na wybor gracza...</p>
+  <button id="showQuestionBtn" style="display:none" onclick="showQuestionToAll()">Wyswietl pytanie</button>
 </div>
 
 <div id="questionScreen" style="display:none">
@@ -78,15 +78,15 @@
     <div id="qMedia" style="margin-bottom:15px;"></div>
     <div class="answers" id="qAnswers"></div>
   </div>
-  <button onclick="endRound()">Zakończ rundę</button>
+  <button onclick="endRound()">Zakoncz runde</button>
 </div>
 
 <div id="finishedScreen" style="display:none">
-  <p style="font-size:1.3em;">🏁 Gra zakończona!</p>
+  <p style="font-size:1.3em;">Gra zakonczona!</p>
 </div>
 
-<button class="end-game-btn" onclick="endGame()">⛔ Zakończ grę</button>
-<div class="status" id="status">Łączenie z bazą danych...</div>
+<button class="end-game-btn" onclick="endGame()">Zakoncz gre</button>
+<div class="status" id="status">Laczenie z baza danych...</div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
@@ -103,7 +103,7 @@ const firebaseConfig = {
 };
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
-document.getElementById('status').textContent = '✅ Połączono z bazą danych';
+document.getElementById('status').textContent = 'Polaczono z baza danych';
 
 const MEDIA_CANDIDATES = [
   { ext: 'jpg', type: 'image' },
@@ -116,23 +116,27 @@ const MEDIA_CANDIDATES = [
 ];
 const mediaCache = {};
 
-async function resolveMedia(baseName) {
-  if (mediaCache[baseName]) return mediaCache[baseName];
-  for (const c of MEDIA_CANDIDATES) {
+function resolveMedia(baseName) {
+  if (mediaCache[baseName]) return Promise.resolve(mediaCache[baseName]);
+  let i = 0;
+  function tryNext() {
+    if (i >= MEDIA_CANDIDATES.length) return Promise.resolve(null);
+    const c = MEDIA_CANDIDATES[i];
+    i++;
     const url = 'media/' + baseName + '.' + c.ext;
-    try {
-      const res = await fetch(url, { method: 'HEAD' });
+    return fetch(url, { method: 'HEAD' }).then(res => {
       if (res.ok) {
-        const result = { url, type: c.type };
+        const result = { url: url, type: c.type };
         mediaCache[baseName] = result;
         return result;
       }
-    } catch (e) {}
+      return tryNext();
+    }).catch(function() { return tryNext(); });
   }
-  return null;
+  return tryNext();
 }
 
-const difficultyNames = { latwe: 'Łatwe', srednie: 'Średnie', trudne: 'Trudne', bardzo_trudne: 'Bardzo trudne' };
+const difficultyNames = { latwe: 'Latwe', srednie: 'Srednie', trudne: 'Trudne', bardzo_trudne: 'Bardzo trudne' };
 
 function getDifficulty(round) {
   if (round <= 5) return 'latwe';
@@ -144,7 +148,7 @@ function getDifficulty(round) {
 
 let gameState = null;
 
-db.ref('game').on('value', snap => {
+db.ref('game').on('value', function(snap) {
   gameState = snap.val();
   if (!gameState) { initGame(); return; }
   render();
@@ -163,8 +167,8 @@ function initGame() {
 function render() {
   const round = gameState.round;
   const difficulty = getDifficulty(round);
-  document.getElementById('roundLabel').textContent = `Runda ${round} / 20`;
-  document.getElementById('difficultyLabel').textContent = difficulty ? difficultyNames[difficulty] : '—';
+  document.getElementById('roundLabel').textContent = 'Runda ' + round + ' / 20';
+  document.getElementById('difficultyLabel').textContent = difficulty ? difficultyNames[difficulty] : '-';
 
   document.getElementById('idleScreen').style.display = gameState.status === 'idle' ? 'block' : 'none';
   document.getElementById('categoriesScreen').style.display = gameState.status === 'categories' ? 'block' : 'none';
@@ -175,7 +179,7 @@ function render() {
     const diffArr = gameData[difficulty];
     const offeredDiv = document.getElementById('offeredCategories');
     offeredDiv.innerHTML = '';
-    gameState.offered.forEach(idx => {
+    gameState.offered.forEach(function(idx) {
       const el = document.createElement('div');
       el.className = 'category-chip';
       el.textContent = diffArr[idx].kategoria;
@@ -183,10 +187,10 @@ function render() {
     });
 
     if (gameState.chosenIndex !== null && gameState.chosenIndex !== undefined) {
-      document.getElementById('waitingForPlayer').textContent = 'Gracz wybrał: ' + diffArr[gameState.chosenIndex].kategoria;
+      document.getElementById('waitingForPlayer').textContent = 'Gracz wybral: ' + diffArr[gameState.chosenIndex].kategoria;
       document.getElementById('showQuestionBtn').style.display = 'block';
     } else {
-      document.getElementById('waitingForPlayer').textContent = 'Czekam na wybór gracza...';
+      document.getElementById('waitingForPlayer').textContent = 'Czekam na wybor gracza...';
       document.getElementById('showQuestionBtn').style.display = 'none';
     }
   }
@@ -199,21 +203,23 @@ function render() {
     const qMediaDiv = document.getElementById('qMedia');
     qMediaDiv.innerHTML = '';
     if (q.media) {
-      resolveMedia(q.media).then(result => {
+      resolveMedia(q.media).then(function(result) {
         if (!result) return;
-        qMediaDiv.innerHTML = result.type === 'video'
-          ? `<video src="${result.url}" controls style="max-width:100%; border-radius:8px;"></video>`
-          : `<img src="${result.url}" style="max-width:100%; border-radius:8px;">`;
+        if (result.type === 'video') {
+          qMediaDiv.innerHTML = '<video src="' + result.url + '" controls style="max-width:100%; border-radius:8px;"></video>';
+        } else {
+          qMediaDiv.innerHTML = '<img src="' + result.url + '" style="max-width:100%; border-radius:8px;">';
+        }
       });
     }
 
     const litery = ['A', 'B', 'C', 'D'];
     const answersDiv = document.getElementById('qAnswers');
     answersDiv.innerHTML = '';
-    q.odpowiedzi.forEach((ans, i) => {
+    q.odpowiedzi.forEach(function(ans, i) {
       const el = document.createElement('div');
       el.className = 'answer-chip' + (i === q.poprawna ? ' correct' : '');
-      el.innerHTML = `<span class="letter">${litery[i]}.</span> ${ans}`;
+      el.innerHTML = '<span class="letter">' + litery[i] + '.</span> ' + ans;
       answersDiv.appendChild(el);
     });
   }
@@ -224,14 +230,14 @@ function startRound() {
   if (!difficulty) return;
   const diffArr = gameData[difficulty];
   const used = (gameState.used && gameState.used[difficulty]) || [];
-  const available = diffArr.map((_, i) => i).filter(i => !used.includes(i));
+  const available = diffArr.map(function(_, i) { return i; }).filter(function(i) { return used.indexOf(i) === -1; });
 
   if (available.length < 2) {
-    alert('Za mało kategorii w puli "' + difficulty + '"! Dodaj więcej w dane.js.');
+    alert('Za malo kategorii w puli "' + difficulty + '"! Dodaj wiecej w dane.js.');
     return;
   }
 
-  const shuffled = available.sort(() => Math.random() - 0.5);
+  const shuffled = available.sort(function() { return Math.random() - 0.5; });
   const offered = [shuffled[0], shuffled[1]];
   const newUsed = used.concat(offered);
 
@@ -262,7 +268,7 @@ function endRound() {
 }
 
 function endGame() {
-  if (!confirm('Na pewno zakończyć i zresetować całą grę od runda 1?')) return;
+  if (!confirm('Na pewno zakonczyc i zresetowac cala gre od runda 1?')) return;
   initGame();
 }
 </script>

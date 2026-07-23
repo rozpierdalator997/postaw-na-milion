@@ -94,8 +94,8 @@
 </head>
 <body>
 <div class="wrap">
-  <h1>🎯 Postaw na milion</h1>
-  <div id="content"><div class="waiting">Czekam na rozpoczęcie rundy...</div></div>
+  <h1>Postaw na milion</h1>
+  <div id="content"><div class="waiting">Czekam na rozpoczecie rundy...</div></div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -126,20 +126,24 @@ const MEDIA_CANDIDATES = [
 ];
 const mediaCache = {};
 
-async function resolveMedia(baseName) {
-  if (mediaCache[baseName]) return mediaCache[baseName];
-  for (const c of MEDIA_CANDIDATES) {
+function resolveMedia(baseName) {
+  if (mediaCache[baseName]) return Promise.resolve(mediaCache[baseName]);
+  let i = 0;
+  function tryNext() {
+    if (i >= MEDIA_CANDIDATES.length) return Promise.resolve(null);
+    const c = MEDIA_CANDIDATES[i];
+    i++;
     const url = 'media/' + baseName + '.' + c.ext;
-    try {
-      const res = await fetch(url, { method: 'HEAD' });
+    return fetch(url, { method: 'HEAD' }).then(res => {
       if (res.ok) {
-        const result = { url, type: c.type };
+        const result = { url: url, type: c.type };
         mediaCache[baseName] = result;
         return result;
       }
-    } catch (e) {}
+      return tryNext();
+    }).catch(function() { return tryNext(); });
   }
-  return null;
+  return tryNext();
 }
 
 function getDifficulty(round) {
@@ -154,18 +158,18 @@ function chooseCategory(idx) {
   db.ref('game/chosenIndex').set(idx);
 }
 
-db.ref('game').on('value', snap => {
+db.ref('game').on('value', function(snap) {
   const state = snap.val();
   render(state);
 });
 
 function render(state) {
   if (!state || state.status === 'idle') {
-    content.innerHTML = '<div class="waiting">Czekam na rozpoczęcie rundy...</div>';
+    content.innerHTML = '<div class="waiting">Czekam na rozpoczecie rundy...</div>';
     return;
   }
   if (state.status === 'finished') {
-    content.innerHTML = '<div class="waiting">🏁 Koniec gry!</div>';
+    content.innerHTML = '<div class="waiting">Koniec gry!</div>';
     return;
   }
 
@@ -174,14 +178,13 @@ function render(state) {
 
   if (state.status === 'categories') {
     if (state.chosenIndex === null || state.chosenIndex === undefined) {
-      content.innerHTML = `
-        <div class="prompt">Wybierz kategorię:</div>
-        <div class="category-buttons">
-          ${state.offered.map(idx => `<button onclick="chooseCategory(${idx})">${diffArr[idx].kategoria}</button>`).join('')}
-        </div>
-      `;
+      let buttonsHtml = '';
+      state.offered.forEach(function(idx) {
+        buttonsHtml += '<button onclick="chooseCategory(' + idx + ')">' + diffArr[idx].kategoria + '</button>';
+      });
+      content.innerHTML = '<div class="prompt">Wybierz kategorie:</div><div class="category-buttons">' + buttonsHtml + '</div>';
     } else {
-      content.innerHTML = `<div class="waiting">Wybrano: ${diffArr[state.chosenIndex].kategoria}<br>Czekam na pytanie...</div>`;
+      content.innerHTML = '<div class="waiting">Wybrano: ' + diffArr[state.chosenIndex].kategoria + '<br>Czekam na pytanie...</div>';
     }
     return;
   }
@@ -190,27 +193,27 @@ function render(state) {
     const q = diffArr[state.chosenIndex];
     const litery = ['A', 'B', 'C', 'D'];
 
-    const answersHtml = q.odpowiedzi.map((a, i) =>
-      `<div class="qs-cell"><span class="letter">${litery[i]}.</span> ${a}</div>`
-    ).join('');
+    let answersHtml = '';
+    q.odpowiedzi.forEach(function(a, i) {
+      answersHtml += '<div class="qs-cell"><span class="letter">' + litery[i] + '.</span> ' + a + '</div>';
+    });
 
-    content.innerHTML = `
-      <div class="qs-fullscreen">
-        <div class="qs-header">${q.pytanie}</div>
-        <div class="qs-body">
-          ${q.media ? '<div class="qs-media" id="qsMediaSlot"></div>' : ''}
-          <div class="qs-answers">${answersHtml}</div>
-        </div>
-      </div>
-    `;
+    let mediaSlotHtml = '';
+    if (q.media) {
+      mediaSlotHtml = '<div class="qs-media" id="qsMediaSlot"></div>';
+    }
+
+    content.innerHTML = '<div class="qs-fullscreen"><div class="qs-header">' + q.pytanie + '</div><div class="qs-body">' + mediaSlotHtml + '<div class="qs-answers">' + answersHtml + '</div></div></div>';
 
     if (q.media) {
       const slot = document.getElementById('qsMediaSlot');
-      resolveMedia(q.media).then(result => {
+      resolveMedia(q.media).then(function(result) {
         if (!result || !slot.isConnected) return;
-        slot.innerHTML = result.type === 'video'
-          ? `<video src="${result.url}" controls autoplay muted playsinline></video>`
-          : `<img src="${result.url}">`;
+        if (result.type === 'video') {
+          slot.innerHTML = '<video src="' + result.url + '" controls autoplay muted playsinline></video>';
+        } else {
+          slot.innerHTML = '<img src="' + result.url + '">';
+        }
       });
     }
   }

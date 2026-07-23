@@ -173,13 +173,14 @@ function render(state) {
 
     let mediaHtml = '';
     if (q.media) {
+      const mediaPath = 'media/' + q.media;
       mediaHtml = `<div class="qs-media">${
         q.media.endsWith('.mp4')
-          ? `<video src="${q.media}" controls autoplay muted playsinline></video>`
-          : `<img src="${q.media}">`
+          ? `<video src="${mediaPath}" controls autoplay muted playsinline></video>`
+          : `<img src="${mediaPath}">`
       }</div>`;
     }
-
+   
     const answersHtml = q.odpowiedzi.map((a, i) =>
       `<div class="qs-cell"><span class="letter">${litery[i]}.</span> ${a}</div>`
     ).join('');

@@ -104,7 +104,6 @@
 <div class="wrap">
   <h1>🎯 Postaw na milion</h1>
   <div id="content"><div class="waiting">Czekam na rozpoczęcie rundy...</div></div>
-  <div id="debugStatus" style="margin-top:30px; font-size:0.75em; color:#666;">Uruchamianie...</div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -123,13 +122,6 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const content = document.getElementById('content');
-const debugStatus = document.getElementById('debugStatus');
-
-if (typeof gameData === 'undefined') {
-  debugStatus.textContent = '❌ BŁĄD: plik dane.js nie wczytał się poprawnie';
-} else {
-  debugStatus.textContent = '⏳ Łączenie z bazą danych...';
-}
 
 function getDifficulty(round) {
   if (round <= 5) return 'latwe';
@@ -144,11 +136,8 @@ function chooseCategory(idx) {
 }
 
 db.ref('game').on('value', snap => {
-  debugStatus.textContent = '✅ Połączono, ostatnia aktualizacja: ' + new Date().toLocaleTimeString();
   const state = snap.val();
   render(state);
-}, error => {
-  debugStatus.textContent = '❌ BŁĄD POŁĄCZENIA: ' + error.message;
 });
 
 function render(state) {

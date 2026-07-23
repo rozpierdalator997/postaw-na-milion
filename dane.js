@@ -8,16 +8,16 @@
 
 const gameData = {
 latwe: [
-    { kategoria: "Historia", pytanie: "W którym roku wybuchła II wojna światowa?", odpowiedzi: ["1935", "1939", "1941", "1945"], poprawna: 1, media: "zdj1.jpg" },
-    { kategoria: "Geografia", pytanie: "Jaka jest stolica Australii?", odpowiedzi: ["Sydney", "Melbourne", "Canberra", "Perth"], poprawna: 2, media: "zdj2.webp" },
-    { kategoria: "Sport", pytanie: "Ile zawodników jednej drużyny gra na boisku w piłce nożnej?", odpowiedzi: ["9", "10", "11", "12"], poprawna: 2, media: "zdj1.jpg" },
-    { kategoria: "Film", pytanie: "Kto reżyserował 'Incepcję'?", odpowiedzi: ["Steven Spielberg", "Christopher Nolan", "James Cameron", "Ridley Scott"], poprawna: 1, media: "zdj2.webp" },
-    { kategoria: "Muzyka", pytanie: "Ile strun ma standardowa gitara?", odpowiedzi: ["4", "5", "6", "7"], poprawna: 2, media: "zdj2.webp" },
-    { kategoria: "Nauka", pytanie: "Jaki jest chemiczny symbol złota?", odpowiedzi: ["Go", "Gd", "Au", "Ag"], poprawna: 2, media: "zdj1.jpg" },
-    { kategoria: "Kuchnia", pytanie: "Z jakiego kraju pochodzi pizza?", odpowiedzi: ["Francja", "Hiszpania", "Włochy", "Grecja"], poprawna: 2, media: "zdj2.webp" },
-    { kategoria: "Zwierzęta", pytanie: "Jak nazywa się największe zwierzę na świecie?", odpowiedzi: ["Słoń afrykański", "Płetwal błękitny", "Żyrafa", "Rekin wielorybi"], poprawna: 1, media: "zdj1.jpg" },
-    { kategoria: "Technologia", pytanie: "Jaka firma stworzyła iPhone'a?", odpowiedzi: ["Samsung", "Apple", "Google", "Microsoft"], poprawna: 1, media: "zdj2.webp" },
-    { kategoria: "Literatura", pytanie: "Kto napisał 'Pana Tadeusza'?", odpowiedzi: ["Juliusz Słowacki", "Adam Mickiewicz", "Henryk Sienkiewicz", "Cyprian Kamil Norwid"], poprawna: 1, media: "zdj1.jpg" }
+    { kategoria: "Historia", pytanie: "W którym roku wybuchła II wojna światowa?", odpowiedzi: ["1935", "1939", "1941", "1945"], poprawna: 1, media: "zdj1" },
+    { kategoria: "Geografia", pytanie: "Jaka jest stolica Australii?", odpowiedzi: ["Sydney", "Melbourne", "Canberra", "Perth"], poprawna: 2, media: "zdj2" },
+    { kategoria: "Sport", pytanie: "Ile zawodników jednej drużyny gra na boisku w piłce nożnej?", odpowiedzi: ["9", "10", "11", "12"], poprawna: 2, media: "zdj1" },
+    { kategoria: "Film", pytanie: "Kto reżyserował 'Incepcję'?", odpowiedzi: ["Steven Spielberg", "Christopher Nolan", "James Cameron", "Ridley Scott"], poprawna: 1, media: "zdj2" },
+    { kategoria: "Muzyka", pytanie: "Ile strun ma standardowa gitara?", odpowiedzi: ["4", "5", "6", "7"], poprawna: 2, media: "zdj2" },
+    { kategoria: "Nauka", pytanie: "Jaki jest chemiczny symbol złota?", odpowiedzi: ["Go", "Gd", "Au", "Ag"], poprawna: 2, media: "zdj1" },
+    { kategoria: "Kuchnia", pytanie: "Z jakiego kraju pochodzi pizza?", odpowiedzi: ["Francja", "Hiszpania", "Włochy", "Grecja"], poprawna: 2, media: "zdj2" },
+    { kategoria: "Zwierzęta", pytanie: "Jak nazywa się największe zwierzę na świecie?", odpowiedzi: ["Słoń afrykański", "Płetwal błękitny", "Żyrafa", "Rekin wielorybi"], poprawna: 1, media: "zdj1" },
+    { kategoria: "Technologia", pytanie: "Jaka firma stworzyła iPhone'a?", odpowiedzi: ["Samsung", "Apple", "Google", "Microsoft"], poprawna: 1, media: "zdj2" },
+    { kategoria: "Literatura", pytanie: "Kto napisał 'Pana Tadeusza'?", odpowiedzi: ["Juliusz Słowacki", "Adam Mickiewicz", "Henryk Sienkiewicz", "Cyprian Kamil Norwid"], poprawna: 1, media: "zdj1" }
   ],
 
   srednie: [

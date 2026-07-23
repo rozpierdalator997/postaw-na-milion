@@ -26,15 +26,7 @@
     border-radius: 12px; cursor: pointer;
   }
   .category-buttons button:active { background: #1c3050; }
-  .category-tag {
-    display: inline-block; background: #d4af37; color: #0b1220;
-    font-weight: bold; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px;
-  }
-  .question-text { font-size: 1.4em; margin-bottom: 25px; }
-  .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .answer { background: #142238; border: 2px solid #d4af37; padding: 18px 10px; border-radius: 10px; font-size: 1.1em; }
-  .media { margin-top: 25px; }
-  .media img, .media video { max-width: 100%; border-radius: 12px; }
+
   .qs-fullscreen {
     position: fixed;
     inset: 0;
@@ -123,6 +115,33 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const content = document.getElementById('content');
 
+const MEDIA_CANDIDATES = [
+  { ext: 'jpg', type: 'image' },
+  { ext: 'jpeg', type: 'image' },
+  { ext: 'png', type: 'image' },
+  { ext: 'webp', type: 'image' },
+  { ext: 'gif', type: 'image' },
+  { ext: 'mp4', type: 'video' },
+  { ext: 'webm', type: 'video' }
+];
+const mediaCache = {};
+
+async function resolveMedia(baseName) {
+  if (mediaCache[baseName]) return mediaCache[baseName];
+  for (const c of MEDIA_CANDIDATES) {
+    const url = 'media/' + baseName + '.' + c.ext;
+    try {
+      const res = await fetch(url, { method: 'HEAD' });
+      if (res.ok) {
+        const result = { url, type: c.type };
+        mediaCache[baseName] = result;
+        return result;
+      }
+    } catch (e) {}
+  }
+  return null;
+}
+
 function getDifficulty(round) {
   if (round <= 5) return 'latwe';
   if (round <= 10) return 'srednie';
@@ -171,16 +190,6 @@ function render(state) {
     const q = diffArr[state.chosenIndex];
     const litery = ['A', 'B', 'C', 'D'];
 
-    let mediaHtml = '';
-    if (q.media) {
-      const mediaPath = 'media/' + q.media;
-      mediaHtml = `<div class="qs-media">${
-        q.media.endsWith('.mp4')
-          ? `<video src="${mediaPath}" controls autoplay muted playsinline></video>`
-          : `<img src="${mediaPath}">`
-      }</div>`;
-    }
-   
     const answersHtml = q.odpowiedzi.map((a, i) =>
       `<div class="qs-cell"><span class="letter">${litery[i]}.</span> ${a}</div>`
     ).join('');
@@ -189,11 +198,21 @@ function render(state) {
       <div class="qs-fullscreen">
         <div class="qs-header">${q.pytanie}</div>
         <div class="qs-body">
-          ${mediaHtml}
+          ${q.media ? '<div class="qs-media" id="qsMediaSlot"></div>' : ''}
           <div class="qs-answers">${answersHtml}</div>
         </div>
       </div>
     `;
+
+    if (q.media) {
+      const slot = document.getElementById('qsMediaSlot');
+      resolveMedia(q.media).then(result => {
+        if (!result || !slot.isConnected) return;
+        slot.innerHTML = result.type === 'video'
+          ? `<video src="${result.url}" controls autoplay muted playsinline></video>`
+          : `<img src="${result.url}">`;
+      });
+    }
   }
 }
 </script>

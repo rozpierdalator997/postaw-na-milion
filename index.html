@@ -77,6 +77,7 @@
     <div class="question-text" id="qText"></div>
     <div id="qMedia" style="margin-bottom:15px;"></div>
     <div class="answers" id="qAnswers"></div>
+    <button id="revealMediaBtn" style="display:none;" onclick="revealMedia()">Odkryj zdjecie</button>
   </div>
   <button onclick="endRound()">Zakoncz runde</button>
 </div>
@@ -200,6 +201,9 @@ function render() {
     document.getElementById('qCategory').textContent = q.kategoria;
     document.getElementById('qText').textContent = q.pytanie;
 
+    const revealBtn = document.getElementById('revealMediaBtn');
+    revealBtn.style.display = (q.mediaOdkryte && !gameState.mediaRevealed) ? 'block' : 'none';
+
     const qMediaDiv = document.getElementById('qMedia');
     qMediaDiv.innerHTML = '';
     if (q.media) {
@@ -245,12 +249,17 @@ function startRound() {
   updates['status'] = 'categories';
   updates['offered'] = offered;
   updates['chosenIndex'] = null;
+  updates['mediaRevealed'] = false;
   updates['used/' + difficulty] = newUsed;
   db.ref('game').update(updates);
 }
 
 function showQuestionToAll() {
-  db.ref('game/status').set('question');
+  db.ref('game').update({ status: 'question', mediaRevealed: false });
+}
+
+function revealMedia() {
+  db.ref('game/mediaRevealed').set(true);
 }
 
 function endRound() {

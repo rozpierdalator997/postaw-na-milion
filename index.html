@@ -206,7 +206,7 @@ function render() {
       resolveMedia(q.media).then(function(result) {
         if (!result) return;
         if (result.type === 'video') {
-          qMediaDiv.innerHTML = '<video src="' + result.url + '" controls style="max-width:100%; border-radius:8px;"></video>';
+          qMediaDiv.innerHTML = '<video src="' + result.url + '" controls autoplay loop style="max-width:100%; border-radius:8px;"></video>';
         } else {
           qMediaDiv.innerHTML = '<img src="' + result.url + '" style="max-width:100%; border-radius:8px;">';
         }

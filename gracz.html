@@ -18,14 +18,88 @@
     padding: 20px;
   }
   .wrap { max-width: 600px; width: 100%; text-align: center; }
-  h1 { color: #d4af37; font-size: 1.4em; margin-bottom: 40px; }
+  h1 { color: #d4af37; font-size: 1.4em; margin-bottom: 30px; }
   .waiting { font-size: 1.2em; color: #999; }
+  .category-tag {
+    display: inline-block;
+    background: #d4af37;
+    color: #0b1220;
+    font-weight: bold;
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .question-text { font-size: 1.4em; margin-bottom: 25px; }
+  .answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .answer {
+    background: #142238;
+    border: 2px solid #d4af37;
+    padding: 18px 10px;
+    border-radius: 10px;
+    font-size: 1.1em;
+  }
+  .answer.correct { background: #2e7d32; border-color: #2e7d32; }
+  .media { margin-top: 25px; }
+  .media img, .media video { max-width: 100%; border-radius: 12px; }
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>🎯 Postaw na milion</h1>
-  <div class="waiting">Czekam na wybór kategorii przez prowadzącego...</div>
+  <div id="content">
+    <div class="waiting">Czekam na wybór kategorii przez prowadzącego...</div>
+  </div>
 </div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCI_URtq3UQA5oEvqMaHrAnG9YID5zTTSw",
+  authDomain: "postaw-na-milion-30154.firebaseapp.com",
+  databaseURL: "https://postaw-na-milion-30154-default-rtdb.europe-west1.firebasedatabase.app/",
+  projectId: "postaw-na-milion-30154",
+  storageBucket: "postaw-na-milion-30154.firebasestorage.app",
+  messagingSenderId: "892861421426",
+  appId: "1:892861421426:web:16e947880cbfad71f92feb"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const content = document.getElementById('content');
+
+db.ref('game').on('value', snap => {
+  const data = snap.val();
+  if (!data || data.state === 'waiting') {
+    content.innerHTML = '<div class="waiting">Czekam na wybór kategorii przez prowadzącego...</div>';
+    return;
+  }
+
+  let mediaHtml = '';
+  if (data.media) {
+    if (data.media.endsWith('.mp4')) {
+      mediaHtml = `<div class="media"><video src="${data.media}" controls></video></div>`;
+    } else {
+      mediaHtml = `<div class="media"><img src="${data.media}"></div>`;
+    }
+  }
+
+  const answersHtml = data.answers.map((ans, i) => {
+    const isCorrect = data.revealed && i === data.correctIndex;
+    return `<div class="answer ${isCorrect ? 'correct' : ''}">${ans}</div>`;
+  }).join('');
+
+  content.innerHTML = `
+    <div class="category-tag">${data.category}</div>
+    <div class="question-text">${data.question}</div>
+    <div class="answers">${answersHtml}</div>
+    ${mediaHtml}
+  `;
+});
+</script>
 </body>
 </html>

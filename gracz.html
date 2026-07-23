@@ -12,37 +12,27 @@
     background: #0b1220;
     color: #f1f1f1;
     min-height: 100vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: flex; align-items: center; justify-content: center;
     padding: 20px;
   }
   .wrap { max-width: 600px; width: 100%; text-align: center; }
   h1 { color: #d4af37; font-size: 1.4em; margin-bottom: 30px; }
   .waiting { font-size: 1.2em; color: #999; }
+  .prompt { font-size: 1.2em; margin-bottom: 20px; }
+  .category-buttons { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .category-buttons button {
+    background: #142238; border: 2px solid #d4af37; color: #f1f1f1;
+    padding: 24px 10px; font-size: 1.1em; font-weight: bold;
+    border-radius: 12px; cursor: pointer;
+  }
+  .category-buttons button:active { background: #1c3050; }
   .category-tag {
-    display: inline-block;
-    background: #d4af37;
-    color: #0b1220;
-    font-weight: bold;
-    padding: 6px 16px;
-    border-radius: 20px;
-    margin-bottom: 20px;
+    display: inline-block; background: #d4af37; color: #0b1220;
+    font-weight: bold; padding: 6px 16px; border-radius: 20px; margin-bottom: 20px;
   }
   .question-text { font-size: 1.4em; margin-bottom: 25px; }
-  .answers {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  .answer {
-    background: #142238;
-    border: 2px solid #d4af37;
-    padding: 18px 10px;
-    border-radius: 10px;
-    font-size: 1.1em;
-  }
-  .answer.correct { background: #2e7d32; border-color: #2e7d32; }
+  .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .answer { background: #142238; border: 2px solid #d4af37; padding: 18px 10px; border-radius: 10px; font-size: 1.1em; }
   .media { margin-top: 25px; }
   .media img, .media video { max-width: 100%; border-radius: 12px; }
 </style>
@@ -50,13 +40,12 @@
 <body>
 <div class="wrap">
   <h1>🎯 Postaw na milion</h1>
-  <div id="content">
-    <div class="waiting">Czekam na wybór kategorii przez prowadzącego...</div>
-  </div>
+  <div id="content"><div class="waiting">Czekam na rozpoczęcie rundy...</div></div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="dane.js"></script>
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyCI_URtq3UQA5oEvqMaHrAnG9YID5zTTSw",
@@ -67,39 +56,70 @@ const firebaseConfig = {
   messagingSenderId: "892861421426",
   appId: "1:892861421426:web:16e947880cbfad71f92feb"
 };
-
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 const content = document.getElementById('content');
 
+function getDifficulty(round) {
+  if (round <= 5) return 'latwe';
+  if (round <= 10) return 'srednie';
+  if (round <= 15) return 'trudne';
+  if (round <= 20) return 'bardzo_trudne';
+  return null;
+}
+
+function chooseCategory(idx) {
+  db.ref('game/chosenIndex').set(idx);
+}
+
 db.ref('game').on('value', snap => {
-  const data = snap.val();
-  if (!data || data.state === 'waiting') {
-    content.innerHTML = '<div class="waiting">Czekam na wybór kategorii przez prowadzącego...</div>';
+  const state = snap.val();
+  render(state);
+});
+
+function render(state) {
+  if (!state || state.status === 'idle') {
+    content.innerHTML = '<div class="waiting">Czekam na rozpoczęcie rundy...</div>';
+    return;
+  }
+  if (state.status === 'finished') {
+    content.innerHTML = '<div class="waiting">🏁 Koniec gry!</div>';
     return;
   }
 
-  let mediaHtml = '';
-  if (data.media) {
-    if (data.media.endsWith('.mp4')) {
-      mediaHtml = `<div class="media"><video src="${data.media}" controls></video></div>`;
+  const difficulty = getDifficulty(state.round);
+  const diffArr = gameData[difficulty];
+
+  if (state.status === 'categories') {
+    if (state.chosenIndex === null || state.chosenIndex === undefined) {
+      content.innerHTML = `
+        <div class="prompt">Wybierz kategorię:</div>
+        <div class="category-buttons">
+          ${state.offered.map(idx => `<button onclick="chooseCategory(${idx})">${diffArr[idx].kategoria}</button>`).join('')}
+        </div>
+      `;
     } else {
-      mediaHtml = `<div class="media"><img src="${data.media}"></div>`;
+      content.innerHTML = `<div class="waiting">Wybrano: ${diffArr[state.chosenIndex].kategoria}<br>Czekam na pytanie...</div>`;
     }
+    return;
   }
 
-  const answersHtml = data.answers.map((ans, i) => {
-    const isCorrect = data.revealed && i === data.correctIndex;
-    return `<div class="answer ${isCorrect ? 'correct' : ''}">${ans}</div>`;
-  }).join('');
-
-  content.innerHTML = `
-    <div class="category-tag">${data.category}</div>
-    <div class="question-text">${data.question}</div>
-    <div class="answers">${answersHtml}</div>
-    ${mediaHtml}
-  `;
-});
+  if (state.status === 'question') {
+    const q = diffArr[state.chosenIndex];
+    let mediaHtml = '';
+    if (q.media) {
+      mediaHtml = q.media.endsWith('.mp4')
+        ? `<div class="media"><video src="${q.media}" controls></video></div>`
+        : `<div class="media"><img src="${q.media}"></div>`;
+    }
+    content.innerHTML = `
+      <div class="category-tag">${q.kategoria}</div>
+      <div class="question-text">${q.pytanie}</div>
+      <div class="answers">${q.odpowiedzi.map(a => `<div class="answer">${a}</div>`).join('')}</div>
+      ${mediaHtml}
+    `;
+  }
+}
 </script>
 </body>
 </html>

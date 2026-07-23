@@ -210,9 +210,8 @@ function render(state) {
       resolveMedia(q.media).then(function(result) {
         if (!result || !slot.isConnected) return;
         if (result.type === 'video') {
-          slot.innerHTML = '<video src="' + result.url + '" controls autoplay loop playsinline></video>';
-        } else 
-        {
+          slot.innerHTML = '<video src="' + result.url + '" autoplay loop playsinline ontouchend="this.controls=true" onclick="this.controls=true"></video>';
+        } else {
           slot.innerHTML = '<img src="' + result.url + '">';
         }
       });

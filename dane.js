@@ -8,7 +8,7 @@
 
 const gameData = {
 latwe: [
-    { kategoria: "Historia", pytanie: "W którym roku wybuchła II wojna światowa?", odpowiedzi: ["1935", "1939", "1941", "1945"], poprawna: 1, media: "film1" },
+    { kategoria: "Historia", pytanie: "Czemu ty się kurwa wylałeś na ścianę do chuja wafla?", odpowiedzi: ["Bo tak", "eureeurru", "Bo ja", "Bo nie"], poprawna: 1, media: "film1" },
     { kategoria: "Geografia", pytanie: "Jaka jest stolica Australii?", odpowiedzi: ["Sydney", "Melbourne", "Canberra", "Perth"], poprawna: 2, media: "zdj2" },
     { kategoria: "Sport", pytanie: "Ile zawodników jednej drużyny gra na boisku w piłce nożnej?", odpowiedzi: ["9", "10", "11", "12"], poprawna: 2, media: "zdj1" },
     { kategoria: "Film", pytanie: "Kto reżyserował 'Incepcję'?", odpowiedzi: ["Steven Spielberg", "Christopher Nolan", "James Cameron", "Ridley Scott"], poprawna: 1, media: "zdj2" },

@@ -35,7 +35,6 @@
   .answer { background: #142238; border: 2px solid #d4af37; padding: 18px 10px; border-radius: 10px; font-size: 1.1em; }
   .media { margin-top: 25px; }
   .media img, .media video { max-width: 100%; border-radius: 12px; }
-
   .qs-fullscreen {
     position: fixed;
     inset: 0;
@@ -93,7 +92,6 @@
     font-size: 1.1em;
     flex-shrink: 0;
   }
-
   @media (orientation: portrait) {
     .qs-header { font-size: 1.4em; padding: 16px; }
     .qs-body { flex-direction: column; }
@@ -106,6 +104,7 @@
 <div class="wrap">
   <h1>🎯 Postaw na milion</h1>
   <div id="content"><div class="waiting">Czekam na rozpoczęcie rundy...</div></div>
+  <div id="debugStatus" style="margin-top:30px; font-size:0.75em; color:#666;">Uruchamianie...</div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
@@ -115,4 +114,98 @@
 const firebaseConfig = {
   apiKey: "AIzaSyCI_URtq3UQA5oEvqMaHrAnG9YID5zTTSw",
   authDomain: "postaw-na-milion-30154.firebaseapp.com",
-  databaseURL: "https://postaw-na-milion-30154-default-
+  databaseURL: "https://postaw-na-milion-30154-default-rtdb.europe-west1.firebasedatabase.app/",
+  projectId: "postaw-na-milion-30154",
+  storageBucket: "postaw-na-milion-30154.firebasestorage.app",
+  messagingSenderId: "892861421426",
+  appId: "1:892861421426:web:16e947880cbfad71f92feb"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const content = document.getElementById('content');
+const debugStatus = document.getElementById('debugStatus');
+
+if (typeof gameData === 'undefined') {
+  debugStatus.textContent = '❌ BŁĄD: plik dane.js nie wczytał się poprawnie';
+} else {
+  debugStatus.textContent = '⏳ Łączenie z bazą danych...';
+}
+
+function getDifficulty(round) {
+  if (round <= 5) return 'latwe';
+  if (round <= 10) return 'srednie';
+  if (round <= 15) return 'trudne';
+  if (round <= 20) return 'bardzo_trudne';
+  return null;
+}
+
+function chooseCategory(idx) {
+  db.ref('game/chosenIndex').set(idx);
+}
+
+db.ref('game').on('value', snap => {
+  debugStatus.textContent = '✅ Połączono, ostatnia aktualizacja: ' + new Date().toLocaleTimeString();
+  const state = snap.val();
+  render(state);
+}, error => {
+  debugStatus.textContent = '❌ BŁĄD POŁĄCZENIA: ' + error.message;
+});
+
+function render(state) {
+  if (!state || state.status === 'idle') {
+    content.innerHTML = '<div class="waiting">Czekam na rozpoczęcie rundy...</div>';
+    return;
+  }
+  if (state.status === 'finished') {
+    content.innerHTML = '<div class="waiting">🏁 Koniec gry!</div>';
+    return;
+  }
+
+  const difficulty = getDifficulty(state.round);
+  const diffArr = gameData[difficulty];
+
+  if (state.status === 'categories') {
+    if (state.chosenIndex === null || state.chosenIndex === undefined) {
+      content.innerHTML = `
+        <div class="prompt">Wybierz kategorię:</div>
+        <div class="category-buttons">
+          ${state.offered.map(idx => `<button onclick="chooseCategory(${idx})">${diffArr[idx].kategoria}</button>`).join('')}
+        </div>
+      `;
+    } else {
+      content.innerHTML = `<div class="waiting">Wybrano: ${diffArr[state.chosenIndex].kategoria}<br>Czekam na pytanie...</div>`;
+    }
+    return;
+  }
+
+  if (state.status === 'question') {
+    const q = diffArr[state.chosenIndex];
+    const litery = ['A', 'B', 'C', 'D'];
+
+    let mediaHtml = '';
+    if (q.media) {
+      mediaHtml = `<div class="qs-media">${
+        q.media.endsWith('.mp4')
+          ? `<video src="${q.media}" controls autoplay muted playsinline></video>`
+          : `<img src="${q.media}">`
+      }</div>`;
+    }
+
+    const answersHtml = q.odpowiedzi.map((a, i) =>
+      `<div class="qs-cell"><span class="letter">${litery[i]}.</span> ${a}</div>`
+    ).join('');
+
+    content.innerHTML = `
+      <div class="qs-fullscreen">
+        <div class="qs-header">${q.pytanie}</div>
+        <div class="qs-body">
+          ${mediaHtml}
+          <div class="qs-answers">${answersHtml}</div>
+        </div>
+      </div>
+    `;
+  }
+}
+</script>
+</body>
+</html>

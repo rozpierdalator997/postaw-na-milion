@@ -4,65 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Postaw na milion — Ekran Gracza</title>
- .qs-fullscreen {
-  position: fixed;
-  inset: 0;
-  background: #0b1220;
-  display: flex;
-  flex-direction: column;
-}
-.qs-header {
-  padding: 24px 30px;
-  text-align: center;
-  font-size: 2em;
-  font-weight: bold;
-  color: #d4af37;
-  border-bottom: 2px solid #2a3550;
-  line-height: 1.3;
-}
-.qs-body {
-  flex: 1;
-  display: flex;
-  overflow: hidden;
-}
-.qs-media {
-  width: 32%;
-  border-right: 2px solid #2a3550;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 16px;
-}
-.qs-media img, .qs-media video {
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 10px;
-  object-fit: contain;
-}
-.qs-answers {
-  flex: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-}
-.qs-cell {
-  border: 1px solid #2a3550;
-  display: flex;
-  align-items: center;
-  padding: 30px 36px;
-  font-size: 1.8em;
-  text-align: left;
-  line-height: 1.35;
-}
-.qs-cell .letter {
-  font-weight: bold;
-  color: #d4af37;
-  margin-right: 16px;
-  font-size: 1.1em;
-  flex-shrink: 0;
-}
-
-/* Zabezpieczenie na wypadek, gdyby tablet obrócono
 <style>
   * { box-sizing: border-box; }
   body {
@@ -94,6 +35,71 @@
   .answer { background: #142238; border: 2px solid #d4af37; padding: 18px 10px; border-radius: 10px; font-size: 1.1em; }
   .media { margin-top: 25px; }
   .media img, .media video { max-width: 100%; border-radius: 12px; }
+
+  .qs-fullscreen {
+    position: fixed;
+    inset: 0;
+    background: #0b1220;
+    display: flex;
+    flex-direction: column;
+  }
+  .qs-header {
+    padding: 24px 30px;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    color: #d4af37;
+    border-bottom: 2px solid #2a3550;
+    line-height: 1.3;
+  }
+  .qs-body {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }
+  .qs-media {
+    width: 32%;
+    border-right: 2px solid #2a3550;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px;
+  }
+  .qs-media img, .qs-media video {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 10px;
+    object-fit: contain;
+  }
+  .qs-answers {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  .qs-cell {
+    border: 1px solid #2a3550;
+    display: flex;
+    align-items: center;
+    padding: 30px 36px;
+    font-size: 1.8em;
+    text-align: left;
+    line-height: 1.35;
+  }
+  .qs-cell .letter {
+    font-weight: bold;
+    color: #d4af37;
+    margin-right: 16px;
+    font-size: 1.1em;
+    flex-shrink: 0;
+  }
+
+  @media (orientation: portrait) {
+    .qs-header { font-size: 1.4em; padding: 16px; }
+    .qs-body { flex-direction: column; }
+    .qs-media { width: 100%; height: 35%; border-right: none; border-bottom: 2px solid #2a3550; }
+    .qs-cell { font-size: 1.2em; padding: 18px; }
+  }
 </style>
 </head>
 <body>
@@ -109,88 +115,4 @@
 const firebaseConfig = {
   apiKey: "AIzaSyCI_URtq3UQA5oEvqMaHrAnG9YID5zTTSw",
   authDomain: "postaw-na-milion-30154.firebaseapp.com",
-  databaseURL: "https://postaw-na-milion-30154-default-rtdb.europe-west1.firebasedatabase.app/",
-  projectId: "postaw-na-milion-30154",
-  storageBucket: "postaw-na-milion-30154.firebasestorage.app",
-  messagingSenderId: "892861421426",
-  appId: "1:892861421426:web:16e947880cbfad71f92feb"
-};
-firebase.initializeApp(firebaseConfig);
-const db = firebase.database();
-const content = document.getElementById('content');
-
-function getDifficulty(round) {
-  if (round <= 5) return 'latwe';
-  if (round <= 10) return 'srednie';
-  if (round <= 15) return 'trudne';
-  if (round <= 20) return 'bardzo_trudne';
-  return null;
-}
-
-function chooseCategory(idx) {
-  db.ref('game/chosenIndex').set(idx);
-}
-
-db.ref('game').on('value', snap => {
-  const state = snap.val();
-  render(state);
-});
-
-function render(state) {
-  if (!state || state.status === 'idle') {
-    content.innerHTML = '<div class="waiting">Czekam na rozpoczęcie rundy...</div>';
-    return;
-  }
-  if (state.status === 'finished') {
-    content.innerHTML = '<div class="waiting">🏁 Koniec gry!</div>';
-    return;
-  }
-
-  const difficulty = getDifficulty(state.round);
-  const diffArr = gameData[difficulty];
-
-  if (state.status === 'categories') {
-    if (state.chosenIndex === null || state.chosenIndex === undefined) {
-      content.innerHTML = `
-        <div class="prompt">Wybierz kategorię:</div>
-        <div class="category-buttons">
-          ${state.offered.map(idx => `<button onclick="chooseCategory(${idx})">${diffArr[idx].kategoria}</button>`).join('')}
-        </div>
-      `;
-    } else {
-      content.innerHTML = `<div class="waiting">Wybrano: ${diffArr[state.chosenIndex].kategoria}<br>Czekam na pytanie...</div>`;
-    }
-    return;
-  }
-
-if (state.status === 'question') {
-    const q = diffArr[state.chosenIndex];
-    const litery = ['A', 'B', 'C', 'D'];
-
-    let mediaHtml = '';
-    if (q.media) {
-      mediaHtml = `<div class="qs-media">${
-        q.media.endsWith('.mp4')
-          ? `<video src="${q.media}" controls autoplay muted playsinline></video>`
-          : `<img src="${q.media}">`
-      }</div>`;
-    }
-
-    const answersHtml = q.odpowiedzi.map((a, i) =>
-      `<div class="qs-cell"><span class="letter">${litery[i]}.</span> ${a}</div>`
-    ).join('');
-
-    content.innerHTML = `
-      <div class="qs-fullscreen">
-        <div class="qs-header">${q.pytanie}</div>
-        <div class="qs-body">
-          ${mediaHtml}
-          <div class="qs-answers">${answersHtml}</div>
-        </div>
-      </div>
-    `;
-  }
-}
-</script>
-</body>
-</html>
+  databaseURL: "https://postaw-na-milion-30154-default-

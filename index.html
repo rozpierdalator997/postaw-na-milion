@@ -74,6 +74,7 @@
   <div class="question-box">
     <div class="category-tag" id="qCategory"></div>
     <div class="question-text" id="qText"></div>
+    <div id="qMedia" style="margin-bottom:15px;"></div>
     <div class="answers" id="qAnswers"></div>
   </div>
   <button onclick="endRound()">Zakończ rundę</button>
@@ -166,6 +167,16 @@ function render() {
     const q = gameData[difficulty][gameState.chosenIndex];
     document.getElementById('qCategory').textContent = q.kategoria;
     document.getElementById('qText').textContent = q.pytanie;
+
+    const qMediaDiv = document.getElementById('qMedia');
+    if (q.media) {
+      const mediaPath = 'media/' + q.media;
+      qMediaDiv.innerHTML = q.media.endsWith('.mp4')
+        ? `<video src="${mediaPath}" controls style="max-width:100%; border-radius:8px;"></video>`
+        : `<img src="${mediaPath}" style="max-width:100%; border-radius:8px;">`;
+    } else {
+      qMediaDiv.innerHTML = '';
+    }
     const answersDiv = document.getElementById('qAnswers');
     answersDiv.innerHTML = '';
    const litery = ['A', 'B', 'C', 'D'];

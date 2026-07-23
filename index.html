@@ -42,7 +42,8 @@
   }
   .question-text { font-size: 1.2em; margin-bottom: 15px; }
   .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .answer-chip { background: #1c3050; border: 2px solid #444; border-radius: 8px; padding: 14px 8px; }
+  .answer-chip { background: #1c3050; border: 2px solid #444; border-radius: 8px; padding: 14px 8px; text-align: left; }
+  .answer-chip .letter { font-weight: bold; color: #d4af37; margin-right: 6px; }
   .answer-chip.correct { background: #2e7d32; border-color: #2e7d32; }
   .end-game-btn {
     max-width: 500px; margin: 30px auto 0; display: block;
@@ -103,6 +104,33 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 document.getElementById('status').textContent = '✅ Połączono z bazą danych';
+
+const MEDIA_CANDIDATES = [
+  { ext: 'jpg', type: 'image' },
+  { ext: 'jpeg', type: 'image' },
+  { ext: 'png', type: 'image' },
+  { ext: 'webp', type: 'image' },
+  { ext: 'gif', type: 'image' },
+  { ext: 'mp4', type: 'video' },
+  { ext: 'webm', type: 'video' }
+];
+const mediaCache = {};
+
+async function resolveMedia(baseName) {
+  if (mediaCache[baseName]) return mediaCache[baseName];
+  for (const c of MEDIA_CANDIDATES) {
+    const url = 'media/' + baseName + '.' + c.ext;
+    try {
+      const res = await fetch(url, { method: 'HEAD' });
+      if (res.ok) {
+        const result = { url, type: c.type };
+        mediaCache[baseName] = result;
+        return result;
+      }
+    } catch (e) {}
+  }
+  return null;
+}
 
 const difficultyNames = { latwe: 'Łatwe', srednie: 'Średnie', trudne: 'Trudne', bardzo_trudne: 'Bardzo trudne' };
 
@@ -169,21 +197,23 @@ function render() {
     document.getElementById('qText').textContent = q.pytanie;
 
     const qMediaDiv = document.getElementById('qMedia');
+    qMediaDiv.innerHTML = '';
     if (q.media) {
-      const mediaPath = 'media/' + q.media;
-      qMediaDiv.innerHTML = q.media.endsWith('.mp4')
-        ? `<video src="${mediaPath}" controls style="max-width:100%; border-radius:8px;"></video>`
-        : `<img src="${mediaPath}" style="max-width:100%; border-radius:8px;">`;
-    } else {
-      qMediaDiv.innerHTML = '';
+      resolveMedia(q.media).then(result => {
+        if (!result) return;
+        qMediaDiv.innerHTML = result.type === 'video'
+          ? `<video src="${result.url}" controls style="max-width:100%; border-radius:8px;"></video>`
+          : `<img src="${result.url}" style="max-width:100%; border-radius:8px;">`;
+      });
     }
+
+    const litery = ['A', 'B', 'C', 'D'];
     const answersDiv = document.getElementById('qAnswers');
     answersDiv.innerHTML = '';
-   const litery = ['A', 'B', 'C', 'D'];
     q.odpowiedzi.forEach((ans, i) => {
       const el = document.createElement('div');
       el.className = 'answer-chip' + (i === q.poprawna ? ' correct' : '');
-      el.textContent = litery[i] + '. ' + ans;
+      el.innerHTML = `<span class="letter">${litery[i]}.</span> ${ans}`;
       answersDiv.appendChild(el);
     });
   }

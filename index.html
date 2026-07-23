@@ -1,1 +1,123 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Postaw na milion — Panel Prowadzącego</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #0b1220;
+    color: #f1f1f1;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  h1 {
+    text-align: center;
+    color: #d4af37;
+    font-size: 1.6em;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+  }
+  .categories, .answers {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  button {
+    background: #142238;
+    border: 2px solid #d4af37;
+    color: #f1f1f1;
+    padding: 18px 10px;
+    font-size: 1em;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  button:hover { background: #1c3050; }
+  button.correct { background: #2e7d32; border-color: #2e7d32; }
+  .question-box {
+    max-width: 500px;
+    margin: 30px auto;
+    background: #142238;
+    border-radius: 12px;
+    padding: 20px;
+    display: none;
+  }
+  .question-box.visible { display: block; }
+  .question-text { font-size: 1.2em; margin-bottom: 15px; }
+  .reveal-btn {
+    display: block;
+    margin: 20px auto 0;
+    background: #d4af37;
+    color: #0b1220;
+    border: none;
+    font-weight: bold;
+  }
+</style>
+</head>
+<body>
 
+<h1>🎯 Postaw na milion — Panel Prowadzącego</h1>
+
+<div class="categories" id="categoryList"></div>
+
+<div class="question-box" id="questionBox">
+  <div class="question-text" id="questionText"></div>
+  <div class="answers" id="answerList"></div>
+  <button class="reveal-btn" onclick="revealAnswer()">Pokaż poprawną odpowiedź</button>
+</div>
+
+<script>
+const gameData = {
+  "Historia": [{ question: "W którym roku wybuchła II wojna światowa?", answers: ["1935", "1939", "1941", "1945"], correct: 1 }],
+  "Geografia": [{ question: "Jaka jest stolica Australii?", answers: ["Sydney", "Melbourne", "Canberra", "Perth"], correct: 2 }],
+  "Sport": [{ question: "Ile zawodników jednej drużyny gra na boisku w piłce nożnej?", answers: ["9", "10", "11", "12"], correct: 2 }],
+  "Film": [{ question: "Kto reżyserował 'Incepcję'?", answers: ["Steven Spielberg", "Christopher Nolan", "James Cameron", "Ridley Scott"], correct: 1 }],
+  "Muzyka": [{ question: "Ile strun ma standardowa gitara?", answers: ["4", "5", "6", "7"], correct: 2 }],
+  "Nauka": [{ question: "Jaki jest chemiczny symbol złota?", answers: ["Go", "Gd", "Au", "Ag"], correct: 2 }]
+};
+
+const categoryList = document.getElementById('categoryList');
+const questionBox = document.getElementById('questionBox');
+const questionText = document.getElementById('questionText');
+const answerList = document.getElementById('answerList');
+let currentCorrect = null;
+
+Object.keys(gameData).forEach(cat => {
+  const btn = document.createElement('button');
+  btn.textContent = cat;
+  btn.onclick = () => showQuestion(cat);
+  categoryList.appendChild(btn);
+});
+
+function showQuestion(cat) {
+  const q = gameData[cat][0];
+  questionText.textContent = q.question;
+  answerList.innerHTML = '';
+  currentCorrect = null;
+  q.answers.forEach((ans, i) => {
+    const btn = document.createElement('button');
+    btn.textContent = ans;
+    btn.dataset.index = i;
+    answerList.appendChild(btn);
+  });
+  currentCorrect = q.correct;
+  questionBox.classList.add('visible');
+}
+
+function revealAnswer() {
+  const buttons = answerList.querySelectorAll('button');
+  buttons.forEach(b => {
+    if (parseInt(b.dataset.index) === currentCorrect) {
+      b.classList.add('correct');
+    }
+  });
+}
+</script>
+
+</body>
+</html>

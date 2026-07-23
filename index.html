@@ -168,10 +168,11 @@ function render() {
     document.getElementById('qText').textContent = q.pytanie;
     const answersDiv = document.getElementById('qAnswers');
     answersDiv.innerHTML = '';
+   const litery = ['A', 'B', 'C', 'D'];
     q.odpowiedzi.forEach((ans, i) => {
       const el = document.createElement('div');
       el.className = 'answer-chip' + (i === q.poprawna ? ' correct' : '');
-      el.textContent = ans;
+      el.textContent = litery[i] + '. ' + ans;
       answersDiv.appendChild(el);
     });
   }

@@ -51,12 +51,22 @@
   .question-text { font-size: 1.2em; margin-bottom: 15px; }
   .reveal-btn {
     display: block;
+    width: 100%;
     margin: 20px auto 0;
     background: #d4af37;
     color: #0b1220;
     border: none;
     font-weight: bold;
   }
+  .back-btn {
+    display: block;
+    width: 100%;
+    margin: 10px auto 0;
+    background: transparent;
+    border: 2px solid #666;
+    color: #ccc;
+  }
+  .status { text-align: center; color: #4caf50; font-size: 0.9em; margin-top: 20px; }
 </style>
 </head>
 <body>
@@ -69,16 +79,35 @@
   <div class="question-text" id="questionText"></div>
   <div class="answers" id="answerList"></div>
   <button class="reveal-btn" onclick="revealAnswer()">Pokaż poprawną odpowiedź</button>
+  <button class="back-btn" onclick="backToCategories()">← Wróć do kategorii</button>
 </div>
 
+<div class="status" id="status">Łączenie z bazą danych...</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 <script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCI_URtq3UQA5oEvqMaHrAnG9YID5zTTSw",
+  authDomain: "postaw-na-milion-30154.firebaseapp.com",
+  databaseURL: "https://postaw-na-milion-30154-default-rtdb.europe-west1.firebasedatabase.app/",
+  projectId: "postaw-na-milion-30154",
+  storageBucket: "postaw-na-milion-30154.firebasestorage.app",
+  messagingSenderId: "892861421426",
+  appId: "1:892861421426:web:16e947880cbfad71f92feb"
+};
+
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+document.getElementById('status').textContent = '✅ Połączono z bazą danych';
+
 const gameData = {
-  "Historia": [{ question: "W którym roku wybuchła II wojna światowa?", answers: ["1935", "1939", "1941", "1945"], correct: 1 }],
-  "Geografia": [{ question: "Jaka jest stolica Australii?", answers: ["Sydney", "Melbourne", "Canberra", "Perth"], correct: 2 }],
-  "Sport": [{ question: "Ile zawodników jednej drużyny gra na boisku w piłce nożnej?", answers: ["9", "10", "11", "12"], correct: 2 }],
-  "Film": [{ question: "Kto reżyserował 'Incepcję'?", answers: ["Steven Spielberg", "Christopher Nolan", "James Cameron", "Ridley Scott"], correct: 1 }],
-  "Muzyka": [{ question: "Ile strun ma standardowa gitara?", answers: ["4", "5", "6", "7"], correct: 2 }],
-  "Nauka": [{ question: "Jaki jest chemiczny symbol złota?", answers: ["Go", "Gd", "Au", "Ag"], correct: 2 }]
+  "Historia": [{ question: "W którym roku wybuchła II wojna światowa?", answers: ["1935", "1939", "1941", "1945"], correct: 1, media: null }],
+  "Geografia": [{ question: "Jaka jest stolica Australii?", answers: ["Sydney", "Melbourne", "Canberra", "Perth"], correct: 2, media: null }],
+  "Sport": [{ question: "Ile zawodników jednej drużyny gra na boisku w piłce nożnej?", answers: ["9", "10", "11", "12"], correct: 2, media: null }],
+  "Film": [{ question: "Kto reżyserował 'Incepcję'?", answers: ["Steven Spielberg", "Christopher Nolan", "James Cameron", "Ridley Scott"], correct: 1, media: null }],
+  "Muzyka": [{ question: "Ile strun ma standardowa gitara?", answers: ["4", "5", "6", "7"], correct: 2, media: null }],
+  "Nauka": [{ question: "Jaki jest chemiczny symbol złota?", answers: ["Go", "Gd", "Au", "Ag"], correct: 2, media: null }]
 };
 
 const categoryList = document.getElementById('categoryList');
@@ -98,15 +127,24 @@ function showQuestion(cat) {
   const q = gameData[cat][0];
   questionText.textContent = q.question;
   answerList.innerHTML = '';
-  currentCorrect = null;
+  currentCorrect = q.correct;
   q.answers.forEach((ans, i) => {
     const btn = document.createElement('button');
     btn.textContent = ans;
     btn.dataset.index = i;
     answerList.appendChild(btn);
   });
-  currentCorrect = q.correct;
   questionBox.classList.add('visible');
+
+  db.ref('game').set({
+    state: 'question',
+    category: cat,
+    question: q.question,
+    answers: q.answers,
+    correctIndex: q.correct,
+    revealed: false,
+    media: q.media || null
+  });
 }
 
 function revealAnswer() {
@@ -116,6 +154,12 @@ function revealAnswer() {
       b.classList.add('correct');
     }
   });
+  db.ref('game/revealed').set(true);
+}
+
+function backToCategories() {
+  questionBox.classList.remove('visible');
+  db.ref('game').set({ state: 'waiting' });
 }
 </script>
 

@@ -14,78 +14,81 @@
     min-height: 100vh;
     padding: 20px;
   }
-  h1 {
-    text-align: center;
-    color: #d4af37;
-    font-size: 1.6em;
-    margin-bottom: 30px;
-    letter-spacing: 1px;
+  h1 { text-align: center; color: #d4af37; font-size: 1.5em; margin-bottom: 10px; }
+  .info-bar {
+    display: flex; justify-content: center; gap: 20px;
+    margin-bottom: 25px; font-size: 1em; color: #ccc;
   }
-  .categories, .answers {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    max-width: 500px;
-    margin: 0 auto;
+  .info-bar span { background: #142238; padding: 6px 14px; border-radius: 20px; }
+  #idleScreen, #categoriesScreen, #questionScreen, #finishedScreen {
+    max-width: 500px; margin: 0 auto; text-align: center;
   }
   button {
-    background: #142238;
-    border: 2px solid #d4af37;
-    color: #f1f1f1;
-    padding: 18px 10px;
-    font-size: 1em;
-    border-radius: 10px;
-    cursor: pointer;
+    background: #142238; border: 2px solid #d4af37; color: #f1f1f1;
+    padding: 16px 20px; font-size: 1em; border-radius: 10px; cursor: pointer;
+    margin-top: 10px; width: 100%;
   }
   button:hover { background: #1c3050; }
-  button.correct { background: #2e7d32; border-color: #2e7d32; }
-  .question-box {
-    max-width: 500px;
-    margin: 30px auto;
-    background: #142238;
-    border-radius: 12px;
-    padding: 20px;
-    display: none;
+  .categories { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 20px 0; }
+  .category-chip {
+    background: #1c3050; border: 2px solid #d4af37; border-radius: 10px;
+    padding: 18px 10px; font-weight: bold;
   }
-  .question-box.visible { display: block; }
+  #waitingForPlayer { color: #999; margin: 15px 0; }
+  .question-box { background: #142238; border-radius: 12px; padding: 20px; margin-bottom: 15px; }
+  .category-tag {
+    display: inline-block; background: #d4af37; color: #0b1220;
+    font-weight: bold; padding: 6px 16px; border-radius: 20px; margin-bottom: 15px;
+  }
   .question-text { font-size: 1.2em; margin-bottom: 15px; }
-  .reveal-btn {
-    display: block;
-    width: 100%;
-    margin: 20px auto 0;
-    background: #d4af37;
-    color: #0b1220;
-    border: none;
-    font-weight: bold;
+  .answers { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .answer-chip { background: #1c3050; border: 2px solid #444; border-radius: 8px; padding: 14px 8px; }
+  .answer-chip.correct { background: #2e7d32; border-color: #2e7d32; }
+  .end-game-btn {
+    max-width: 500px; margin: 30px auto 0; display: block;
+    background: transparent; border-color: #c0392b; color: #e57373;
   }
-  .back-btn {
-    display: block;
-    width: 100%;
-    margin: 10px auto 0;
-    background: transparent;
-    border: 2px solid #666;
-    color: #ccc;
-  }
-  .status { text-align: center; color: #4caf50; font-size: 0.9em; margin-top: 20px; }
+  .status { text-align: center; color: #4caf50; font-size: 0.85em; margin-top: 20px; }
 </style>
 </head>
 <body>
 
-<h1>🎯 Postaw na milion — Panel Prowadzącego</h1>
-
-<div class="categories" id="categoryList"></div>
-
-<div class="question-box" id="questionBox">
-  <div class="question-text" id="questionText"></div>
-  <div class="answers" id="answerList"></div>
-  <button class="reveal-btn" onclick="revealAnswer()">Pokaż poprawną odpowiedź</button>
-  <button class="back-btn" onclick="backToCategories()">← Wróć do kategorii</button>
+<h1>🎯 Panel Prowadzącego</h1>
+<div class="info-bar">
+  <span id="roundLabel">Runda 1 / 20</span>
+  <span id="difficultyLabel">Łatwe</span>
 </div>
 
+<div id="idleScreen">
+  <button onclick="startRound()">▶ Rozpocznij rundę</button>
+</div>
+
+<div id="categoriesScreen" style="display:none">
+  <p>Wylosowane kategorie:</p>
+  <div class="categories" id="offeredCategories"></div>
+  <p id="waitingForPlayer">Czekam na wybór gracza...</p>
+  <button id="showQuestionBtn" style="display:none" onclick="showQuestionToAll()">Wyświetl pytanie</button>
+</div>
+
+<div id="questionScreen" style="display:none">
+  <div class="question-box">
+    <div class="category-tag" id="qCategory"></div>
+    <div class="question-text" id="qText"></div>
+    <div class="answers" id="qAnswers"></div>
+  </div>
+  <button onclick="endRound()">Zakończ rundę</button>
+</div>
+
+<div id="finishedScreen" style="display:none">
+  <p style="font-size:1.3em;">🏁 Gra zakończona!</p>
+</div>
+
+<button class="end-game-btn" onclick="endGame()">⛔ Zakończ grę</button>
 <div class="status" id="status">Łączenie z bazą danych...</div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="dane.js"></script>
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyCI_URtq3UQA5oEvqMaHrAnG9YID5zTTSw",
@@ -96,72 +99,130 @@ const firebaseConfig = {
   messagingSenderId: "892861421426",
   appId: "1:892861421426:web:16e947880cbfad71f92feb"
 };
-
 firebase.initializeApp(firebaseConfig);
 const db = firebase.database();
 document.getElementById('status').textContent = '✅ Połączono z bazą danych';
 
-const gameData = {
-  "Historia": [{ question: "W którym roku wybuchła II wojna światowa?", answers: ["1935", "1939", "1941", "1945"], correct: 1, media: null }],
-  "Geografia": [{ question: "Jaka jest stolica Australii?", answers: ["Sydney", "Melbourne", "Canberra", "Perth"], correct: 2, media: null }],
-  "Sport": [{ question: "Ile zawodników jednej drużyny gra na boisku w piłce nożnej?", answers: ["9", "10", "11", "12"], correct: 2, media: null }],
-  "Film": [{ question: "Kto reżyserował 'Incepcję'?", answers: ["Steven Spielberg", "Christopher Nolan", "James Cameron", "Ridley Scott"], correct: 1, media: null }],
-  "Muzyka": [{ question: "Ile strun ma standardowa gitara?", answers: ["4", "5", "6", "7"], correct: 2, media: null }],
-  "Nauka": [{ question: "Jaki jest chemiczny symbol złota?", answers: ["Go", "Gd", "Au", "Ag"], correct: 2, media: null }]
-};
+const difficultyNames = { latwe: 'Łatwe', srednie: 'Średnie', trudne: 'Trudne', bardzo_trudne: 'Bardzo trudne' };
 
-const categoryList = document.getElementById('categoryList');
-const questionBox = document.getElementById('questionBox');
-const questionText = document.getElementById('questionText');
-const answerList = document.getElementById('answerList');
-let currentCorrect = null;
+function getDifficulty(round) {
+  if (round <= 5) return 'latwe';
+  if (round <= 10) return 'srednie';
+  if (round <= 15) return 'trudne';
+  if (round <= 20) return 'bardzo_trudne';
+  return null;
+}
 
-Object.keys(gameData).forEach(cat => {
-  const btn = document.createElement('button');
-  btn.textContent = cat;
-  btn.onclick = () => showQuestion(cat);
-  categoryList.appendChild(btn);
+let gameState = null;
+
+db.ref('game').on('value', snap => {
+  gameState = snap.val();
+  if (!gameState) { initGame(); return; }
+  render();
 });
 
-function showQuestion(cat) {
-  const q = gameData[cat][0];
-  questionText.textContent = q.question;
-  answerList.innerHTML = '';
-  currentCorrect = q.correct;
-  q.answers.forEach((ans, i) => {
-    const btn = document.createElement('button');
-    btn.textContent = ans;
-    btn.dataset.index = i;
-    answerList.appendChild(btn);
-  });
-  questionBox.classList.add('visible');
-
+function initGame() {
   db.ref('game').set({
-    state: 'question',
-    category: cat,
-    question: q.question,
-    answers: q.answers,
-    correctIndex: q.correct,
-    revealed: false,
-    media: q.media || null
+    round: 1,
+    status: 'idle',
+    offered: null,
+    chosenIndex: null,
+    used: { latwe: [], srednie: [], trudne: [], bardzo_trudne: [] }
   });
 }
 
-function revealAnswer() {
-  const buttons = answerList.querySelectorAll('button');
-  buttons.forEach(b => {
-    if (parseInt(b.dataset.index) === currentCorrect) {
-      b.classList.add('correct');
+function render() {
+  const round = gameState.round;
+  const difficulty = getDifficulty(round);
+  document.getElementById('roundLabel').textContent = `Runda ${round} / 20`;
+  document.getElementById('difficultyLabel').textContent = difficulty ? difficultyNames[difficulty] : '—';
+
+  document.getElementById('idleScreen').style.display = gameState.status === 'idle' ? 'block' : 'none';
+  document.getElementById('categoriesScreen').style.display = gameState.status === 'categories' ? 'block' : 'none';
+  document.getElementById('questionScreen').style.display = gameState.status === 'question' ? 'block' : 'none';
+  document.getElementById('finishedScreen').style.display = gameState.status === 'finished' ? 'block' : 'none';
+
+  if (gameState.status === 'categories') {
+    const diffArr = gameData[difficulty];
+    const offeredDiv = document.getElementById('offeredCategories');
+    offeredDiv.innerHTML = '';
+    gameState.offered.forEach(idx => {
+      const el = document.createElement('div');
+      el.className = 'category-chip';
+      el.textContent = diffArr[idx].kategoria;
+      offeredDiv.appendChild(el);
+    });
+
+    if (gameState.chosenIndex !== null && gameState.chosenIndex !== undefined) {
+      document.getElementById('waitingForPlayer').textContent = 'Gracz wybrał: ' + diffArr[gameState.chosenIndex].kategoria;
+      document.getElementById('showQuestionBtn').style.display = 'block';
+    } else {
+      document.getElementById('waitingForPlayer').textContent = 'Czekam na wybór gracza...';
+      document.getElementById('showQuestionBtn').style.display = 'none';
     }
-  });
-  db.ref('game/revealed').set(true);
+  }
+
+  if (gameState.status === 'question') {
+    const q = gameData[difficulty][gameState.chosenIndex];
+    document.getElementById('qCategory').textContent = q.kategoria;
+    document.getElementById('qText').textContent = q.pytanie;
+    const answersDiv = document.getElementById('qAnswers');
+    answersDiv.innerHTML = '';
+    q.odpowiedzi.forEach((ans, i) => {
+      const el = document.createElement('div');
+      el.className = 'answer-chip' + (i === q.poprawna ? ' correct' : '');
+      el.textContent = ans;
+      answersDiv.appendChild(el);
+    });
+  }
 }
 
-function backToCategories() {
-  questionBox.classList.remove('visible');
-  db.ref('game').set({ state: 'waiting' });
+function startRound() {
+  const difficulty = getDifficulty(gameState.round);
+  if (!difficulty) return;
+  const diffArr = gameData[difficulty];
+  const used = (gameState.used && gameState.used[difficulty]) || [];
+  const available = diffArr.map((_, i) => i).filter(i => !used.includes(i));
+
+  if (available.length < 2) {
+    alert('Za mało kategorii w puli "' + difficulty + '"! Dodaj więcej w dane.js.');
+    return;
+  }
+
+  const shuffled = available.sort(() => Math.random() - 0.5);
+  const offered = [shuffled[0], shuffled[1]];
+  const newUsed = used.concat(offered);
+
+  const updates = {};
+  updates['status'] = 'categories';
+  updates['offered'] = offered;
+  updates['chosenIndex'] = null;
+  updates['used/' + difficulty] = newUsed;
+  db.ref('game').update(updates);
+}
+
+function showQuestionToAll() {
+  db.ref('game/status').set('question');
+}
+
+function endRound() {
+  const nextRound = gameState.round + 1;
+  if (nextRound > 20) {
+    db.ref('game').update({ status: 'finished' });
+  } else {
+    db.ref('game').update({
+      round: nextRound,
+      status: 'idle',
+      offered: null,
+      chosenIndex: null
+    });
+  }
+}
+
+function endGame() {
+  if (!confirm('Na pewno zakończyć i zresetować całą grę od runda 1?')) return;
+  initGame();
 }
 </script>
-
 </body>
 </html>

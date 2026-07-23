@@ -115,7 +115,7 @@ function render(state) {
     content.innerHTML = `
       <div class="category-tag">${q.kategoria}</div>
       <div class="question-text">${q.pytanie}</div>
-      <div class="answers">${q.odpowiedzi.map(a => `<div class="answer">${a}</div>`).join('')}</div>
+      <div class="answers">${q.odpowiedzi.map((a, i) => `<div class="answer">${['A','B','C','D'][i]}. ${a}</div>`).join('')}</div>
       ${mediaHtml}
     `;
   }

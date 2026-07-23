@@ -189,9 +189,11 @@ function render(state) {
     return;
   }
 
-  if (state.status === 'question') {
+ if (state.status === 'question') {
     const q = diffArr[state.chosenIndex];
     const litery = ['A', 'B', 'C', 'D'];
+
+    const mediaToShow = (state.mediaRevealed && q.mediaOdkryte) ? q.mediaOdkryte : q.media;
 
     let answersHtml = '';
     q.odpowiedzi.forEach(function(a, i) {
@@ -199,15 +201,15 @@ function render(state) {
     });
 
     let mediaSlotHtml = '';
-    if (q.media) {
+    if (mediaToShow) {
       mediaSlotHtml = '<div class="qs-media" id="qsMediaSlot"></div>';
     }
 
     content.innerHTML = '<div class="qs-fullscreen"><div class="qs-header">' + q.pytanie + '</div><div class="qs-body">' + mediaSlotHtml + '<div class="qs-answers">' + answersHtml + '</div></div></div>';
 
-    if (q.media) {
+    if (mediaToShow) {
       const slot = document.getElementById('qsMediaSlot');
-      resolveMedia(q.media).then(function(result) {
+      resolveMedia(mediaToShow).then(function(result) {
         if (!result || !slot.isConnected) return;
         if (result.type === 'video') {
           slot.innerHTML = '<video src="' + result.url + '" autoplay loop playsinline ontouchend="this.controls=true" onclick="this.controls=true"></video>';

@@ -12,7 +12,7 @@ latwe: [
     { kategoria: "Sztuka", pytanie: "Co przedstawia ten obraz?", odpowiedzi: ["Żyd ze szlugiem", "Żyd po litrze czystej", "Żydowskie szczęście", "Żydowski kolczyk"], poprawna: 3, media: "zdj3", mediaOdkryte: "zdj3odkryte" },
     { kategoria: "Sport", pytanie: "Ile zawodników jednej drużyny gra na boisku w piłce nożnej?", odpowiedzi: ["9", "10", "11", "12"], poprawna: 2, media: "zdj1" },
     { kategoria: "Kinematografia", pytanie: "Co się stało z Panem Witczakiem?", odpowiedzi: ["Kurrrbleeueue", "Nic", "Jest dobrze w chuj", "Zesrał się"], poprawna: 0, media: "film2" },
-    { kategoria: "Muzyka", pytanie: "Ile strun ma standardowa gitara?", odpowiedzi: ["4", "5", "6", "7"], poprawna: 2, media: "zdj2" },
+    { kategoria: "Muzyka", pytanie: "Jaki jest tytuł tego utworu?", odpowiedzi: ["Mickey Rourke", "Fame", "II Duce", "Zabóstwo Liryczne"], poprawna: 0, media: "Mickey Rourke" },
     { kategoria: "Nauka", pytanie: "Jaki jest chemiczny symbol złota?", odpowiedzi: ["Go", "Gd", "Au", "Ag"], poprawna: 2, media: "zdj1" },
     { kategoria: "Kuchnia", pytanie: "Z jakiego kraju pochodzi pizza?", odpowiedzi: ["Francja", "Hiszpania", "Włochy", "Grecja"], poprawna: 2, media: "zdj2" },
     { kategoria: "Zwierzęta", pytanie: "Jak nazywa się największe zwierzę na świecie?", odpowiedzi: ["Słoń afrykański", "Płetwal błękitny", "Żyrafa", "Rekin wielorybi"], poprawna: 1, media: "zdj1" },

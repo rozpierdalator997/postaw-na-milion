@@ -7,7 +7,9 @@
 // ============================================================
 
 const gameData = {
-latwe: [
+
+zestaw1: {
+    latwe: [
     { kategoria: "Historia", pytanie: "Czemu ty się kurwa wylałeś na ścianę do chuja wafla?", odpowiedzi: ["Bo tak", "eureeurru", "Bo ja", "Bo nie"], poprawna: 2, media: "film1" },
     { kategoria: "Sztuka", pytanie: "Co przedstawia ten obraz?", odpowiedzi: ["Żyd ze szlugiem", "Żyd po litrze czystej", "Żydowskie szczęście", "Żydowski kolczyk"], poprawna: 3, media: "zdj3", mediaOdkryte: "zdj3odkryte" },
     { kategoria: "Sport", pytanie: "Ile zawodników jednej drużyny gra na boisku w piłce nożnej?", odpowiedzi: ["9", "10", "11", "12"], poprawna: 2, media: "zdj1" },
@@ -61,4 +63,119 @@ latwe: [
     { kategoria: "Przykład 9", pytanie: "Treść pytania bardzo trudnego 9?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
     { kategoria: "Przykład 10", pytanie: "Treść pytania bardzo trudnego 10?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null }
   ]
+},
+
+    zestaw2: {
+    latwe: [
+    { kategoria: "Historia", pytanie: "Czemu ty się kurwa wylałeś na ścianę do chuja wafla?", odpowiedzi: ["Bo tak", "eureeurru", "Bo ja", "Bo nie"], poprawna: 2, media: "film1" },
+    { kategoria: "Sztuka", pytanie: "Co przedstawia ten obraz?", odpowiedzi: ["Żyd ze szlugiem", "Żyd po litrze czystej", "Żydowskie szczęście", "Żydowski kolczyk"], poprawna: 3, media: "zdj3", mediaOdkryte: "zdj3odkryte" },
+    { kategoria: "Sport", pytanie: "Ile zawodników jednej drużyny gra na boisku w piłce nożnej?", odpowiedzi: ["9", "10", "11", "12"], poprawna: 2, media: "zdj1" },
+    { kategoria: "Kinematografia", pytanie: "Co się stało z Panem Witczakiem?", odpowiedzi: ["Kurrrbleeueue", "Nic", "Jest dobrze w chuj", "Zesrał się"], poprawna: 0, media: "film2" },
+    { kategoria: "Muzyka", pytanie: "Jaki jest tytuł tego utworu?", odpowiedzi: ["Mickey Rourke", "Fame", "II Duce", "Zabóstwo Liryczne"], poprawna: 0, media: "Mickey Rourke" },
+    { kategoria: "Nauka", pytanie: "Jaki jest chemiczny symbol złota?", odpowiedzi: ["Go", "Gd", "Au", "Ag"], poprawna: 2, media: "zdj1" },
+    { kategoria: "Kuchnia", pytanie: "Z jakiego kraju pochodzi pizza?", odpowiedzi: ["Francja", "Hiszpania", "Włochy", "Grecja"], poprawna: 2, media: "zdj2" },
+    { kategoria: "Zwierzęta", pytanie: "Jak nazywa się największe zwierzę na świecie?", odpowiedzi: ["Słoń afrykański", "Płetwal błękitny", "Żyrafa", "Rekin wielorybi"], poprawna: 1, media: "zdj1" },
+    { kategoria: "Technologia", pytanie: "Jaka firma stworzyła iPhone'a?", odpowiedzi: ["Samsung", "Apple", "Google", "Microsoft"], poprawna: 1, media: "zdj2" },
+    { kategoria: "Literatura", pytanie: "Kto napisał 'Pana Tadeusza'?", odpowiedzi: ["Juliusz Słowacki", "Adam Mickiewicz", "Henryk Sienkiewicz", "Cyprian Kamil Norwid"], poprawna: 1, media: "zdj1" }
+  ],
+
+  srednie: [
+    // UZUPEŁNIJ minimum 10 pozycji — skopiuj wzór z grupy "latwe" i podmień treść
+    { kategoria: "Przykład 1", pytanie: "Treść pytania średniego 1?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 2", pytanie: "Treść pytania średniego 2?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 3", pytanie: "Treść pytania średniego 3?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 4", pytanie: "Treść pytania średniego 4?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 5", pytanie: "Treść pytania średniego 5?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 6", pytanie: "Treść pytania średniego 6?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 7", pytanie: "Treść pytania średniego 7?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 8", pytanie: "Treść pytania średniego 8?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 9", pytanie: "Treść pytania średniego 9?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 10", pytanie: "Treść pytania średniego 10?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null }
+  ],
+
+  trudne: [
+    // UZUPEŁNIJ minimum 10 pozycji
+    { kategoria: "Przykład 1", pytanie: "Treść pytania trudnego 1?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 2", pytanie: "Treść pytania trudnego 2?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 3", pytanie: "Treść pytania trudnego 3?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 4", pytanie: "Treść pytania trudnego 4?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 5", pytanie: "Treść pytania trudnego 5?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 6", pytanie: "Treść pytania trudnego 6?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 7", pytanie: "Treść pytania trudnego 7?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 8", pytanie: "Treść pytania trudnego 8?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 9", pytanie: "Treść pytania trudnego 9?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 10", pytanie: "Treść pytania trudnego 10?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null }
+  ],
+
+  bardzo_trudne: [
+    // UZUPEŁNIJ minimum 10 pozycji
+    { kategoria: "Przykład 1", pytanie: "Treść pytania bardzo trudnego 1?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 2", pytanie: "Treść pytania bardzo trudnego 2?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 3", pytanie: "Treść pytania bardzo trudnego 3?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 4", pytanie: "Treść pytania bardzo trudnego 4?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 5", pytanie: "Treść pytania bardzo trudnego 5?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 6", pytanie: "Treść pytania bardzo trudnego 6?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 7", pytanie: "Treść pytania bardzo trudnego 7?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 8", pytanie: "Treść pytania bardzo trudnego 8?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 9", pytanie: "Treść pytania bardzo trudnego 9?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 10", pytanie: "Treść pytania bardzo trudnego 10?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null }
+  ]
+},
+
+    zestaw3: {
+    latwe: [
+    { kategoria: "Historia", pytanie: "Czemu ty się kurwa wylałeś na ścianę do chuja wafla?", odpowiedzi: ["Bo tak", "eureeurru", "Bo ja", "Bo nie"], poprawna: 2, media: "film1" },
+    { kategoria: "Sztuka", pytanie: "Co przedstawia ten obraz?", odpowiedzi: ["Żyd ze szlugiem", "Żyd po litrze czystej", "Żydowskie szczęście", "Żydowski kolczyk"], poprawna: 3, media: "zdj3", mediaOdkryte: "zdj3odkryte" },
+    { kategoria: "Sport", pytanie: "Ile zawodników jednej drużyny gra na boisku w piłce nożnej?", odpowiedzi: ["9", "10", "11", "12"], poprawna: 2, media: "zdj1" },
+    { kategoria: "Kinematografia", pytanie: "Co się stało z Panem Witczakiem?", odpowiedzi: ["Kurrrbleeueue", "Nic", "Jest dobrze w chuj", "Zesrał się"], poprawna: 0, media: "film2" },
+    { kategoria: "Muzyka", pytanie: "Jaki jest tytuł tego utworu?", odpowiedzi: ["Mickey Rourke", "Fame", "II Duce", "Zabóstwo Liryczne"], poprawna: 0, media: "Mickey Rourke" },
+    { kategoria: "Nauka", pytanie: "Jaki jest chemiczny symbol złota?", odpowiedzi: ["Go", "Gd", "Au", "Ag"], poprawna: 2, media: "zdj1" },
+    { kategoria: "Kuchnia", pytanie: "Z jakiego kraju pochodzi pizza?", odpowiedzi: ["Francja", "Hiszpania", "Włochy", "Grecja"], poprawna: 2, media: "zdj2" },
+    { kategoria: "Zwierzęta", pytanie: "Jak nazywa się największe zwierzę na świecie?", odpowiedzi: ["Słoń afrykański", "Płetwal błękitny", "Żyrafa", "Rekin wielorybi"], poprawna: 1, media: "zdj1" },
+    { kategoria: "Technologia", pytanie: "Jaka firma stworzyła iPhone'a?", odpowiedzi: ["Samsung", "Apple", "Google", "Microsoft"], poprawna: 1, media: "zdj2" },
+    { kategoria: "Literatura", pytanie: "Kto napisał 'Pana Tadeusza'?", odpowiedzi: ["Juliusz Słowacki", "Adam Mickiewicz", "Henryk Sienkiewicz", "Cyprian Kamil Norwid"], poprawna: 1, media: "zdj1" }
+  ],
+
+  srednie: [
+    // UZUPEŁNIJ minimum 10 pozycji — skopiuj wzór z grupy "latwe" i podmień treść
+    { kategoria: "Przykład 1", pytanie: "Treść pytania średniego 1?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 2", pytanie: "Treść pytania średniego 2?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 3", pytanie: "Treść pytania średniego 3?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 4", pytanie: "Treść pytania średniego 4?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 5", pytanie: "Treść pytania średniego 5?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 6", pytanie: "Treść pytania średniego 6?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 7", pytanie: "Treść pytania średniego 7?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 8", pytanie: "Treść pytania średniego 8?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 9", pytanie: "Treść pytania średniego 9?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 10", pytanie: "Treść pytania średniego 10?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null }
+  ],
+
+  trudne: [
+    // UZUPEŁNIJ minimum 10 pozycji
+    { kategoria: "Przykład 1", pytanie: "Treść pytania trudnego 1?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 2", pytanie: "Treść pytania trudnego 2?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 3", pytanie: "Treść pytania trudnego 3?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 4", pytanie: "Treść pytania trudnego 4?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 5", pytanie: "Treść pytania trudnego 5?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 6", pytanie: "Treść pytania trudnego 6?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 7", pytanie: "Treść pytania trudnego 7?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 8", pytanie: "Treść pytania trudnego 8?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 9", pytanie: "Treść pytania trudnego 9?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 10", pytanie: "Treść pytania trudnego 10?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null }
+  ],
+
+  bardzo_trudne: [
+    // UZUPEŁNIJ minimum 10 pozycji
+    { kategoria: "Przykład 1", pytanie: "Treść pytania bardzo trudnego 1?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 2", pytanie: "Treść pytania bardzo trudnego 2?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 3", pytanie: "Treść pytania bardzo trudnego 3?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 4", pytanie: "Treść pytania bardzo trudnego 4?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 5", pytanie: "Treść pytania bardzo trudnego 5?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 6", pytanie: "Treść pytania bardzo trudnego 6?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 7", pytanie: "Treść pytania bardzo trudnego 7?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 8", pytanie: "Treść pytania bardzo trudnego 8?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 9", pytanie: "Treść pytania bardzo trudnego 9?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null },
+    { kategoria: "Przykład 10", pytanie: "Treść pytania bardzo trudnego 10?", odpowiedzi: ["A", "B", "C", "D"], poprawna: 0, media: null }
+  ]
+},
 };

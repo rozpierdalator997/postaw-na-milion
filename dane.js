@@ -19,7 +19,7 @@ zestaw1: {
     { kategoria: "Artyści", pytanie: "Jak się nazywa ten jegomość?", odpowiedzi: ["Borys Przybylski", "Piotr Połać", "Winicjusz Bartków", "Robert Kazanowski"], poprawna: 1, media: "l105" },
     { kategoria: "Siłownia", pytanie: "Które mięśnie nie pracują podczas robienia poprawnych pompek?", odpowiedzi: ["Triceps", "Klatka piersiowa", "Brzuch", "Żadna odpowiedź nie jest poprawna"], poprawna: 3, media: "l130" },
     { kategoria: "Europa", pytanie: "Ilu mieszkańców ma Europa (kontynent)?", odpowiedzi: ["750 mln", "1 mld", "450 mln", "1,5 mld"], poprawna: 0, media: "l101" },
-    { kategoria: "Muzyka", pytanie: "Dokończ tekst piosenki", odpowiedzi: ["Chcesz możemy iść na noże", "Mój kutas piękny jest jak Porsche", "Wchodzę w jej cipę jak w bambosze", "Robię rozpierdol bom jest bossem"], poprawna: 2, media: "zdj1" }
+    { kategoria: "Muzyka", pytanie: "Dokończ tekst piosenki", odpowiedzi: ["Chcesz możemy iść na noże", "Mój kutas piękny jest jak Porsche", "Wchodzę w jej cipę jak w bambosze", "Robię rozpierdol bom jest bossem"], poprawna: 2, media: "l122" }
   ],
 
   srednie: [

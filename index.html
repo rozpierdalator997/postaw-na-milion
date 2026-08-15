@@ -16,11 +16,11 @@
   }
   h1 { text-align: center; color: #d4af37; font-size: 1.5em; margin-bottom: 10px; }
   .info-bar {
-    display: flex; justify-content: center; gap: 20px;
+    display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;
     margin-bottom: 25px; font-size: 1em; color: #ccc;
-  } 
+  }
   .info-bar span { background: #142238; padding: 6px 14px; border-radius: 20px; }
-  #idleScreen, #categoriesScreen, #questionScreen, #finishedScreen {
+  #selectSetScreen, #idleScreen, #categoriesScreen, #questionScreen, #finishedScreen {
     max-width: 500px; margin: 0 auto; text-align: center;
   }
   button {
@@ -58,9 +58,17 @@
 <div class="info-bar">
   <span id="roundLabel">Runda 1 / 20</span>
   <span id="difficultyLabel">Latwe</span>
+  <span id="setLabel"></span>
 </div>
 
-<div id="idleScreen">
+<div id="selectSetScreen" style="display:none">
+  <p>Wybierz zestaw pytan:</p>
+  <button onclick="selectZestaw('zestaw1')">Zestaw 1</button>
+  <button onclick="selectZestaw('zestaw2')">Zestaw 2</button>
+  <button onclick="selectZestaw('zestaw3')">Zestaw 3</button>
+</div>
+
+<div id="idleScreen" style="display:none">
   <button onclick="startRound()">Rozpocznij runde</button>
 </div>
 
@@ -91,7 +99,7 @@
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-<script src="dane.js"></script>
+<script src="dane.js?v=3"></script>
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyCI_URtq3UQA5oEvqMaHrAnG9YID5zTTSw",
@@ -138,6 +146,7 @@ function resolveMedia(baseName) {
 }
 
 const difficultyNames = { latwe: 'Latwe', srednie: 'Srednie', trudne: 'Trudne', bardzo_trudne: 'Bardzo trudne' };
+const setNames = { zestaw1: 'Zestaw 1', zestaw2: 'Zestaw 2', zestaw3: 'Zestaw 3' };
 
 function getDifficulty(round) {
   if (round <= 5) return 'latwe';
@@ -158,11 +167,17 @@ db.ref('game').on('value', function(snap) {
 function initGame() {
   db.ref('game').set({
     round: 1,
-    status: 'idle',
+    status: 'selectSet',
+    zestaw: null,
     offered: null,
     chosenIndex: null,
+    mediaRevealed: false,
     used: { latwe: [], srednie: [], trudne: [], bardzo_trudne: [] }
   });
+}
+
+function selectZestaw(nazwa) {
+  db.ref('game').update({ zestaw: nazwa, status: 'idle' });
 }
 
 function render() {
@@ -170,14 +185,16 @@ function render() {
   const difficulty = getDifficulty(round);
   document.getElementById('roundLabel').textContent = 'Runda ' + round + ' / 20';
   document.getElementById('difficultyLabel').textContent = difficulty ? difficultyNames[difficulty] : '-';
+  document.getElementById('setLabel').textContent = gameState.zestaw ? setNames[gameState.zestaw] : '';
 
+  document.getElementById('selectSetScreen').style.display = gameState.status === 'selectSet' ? 'block' : 'none';
   document.getElementById('idleScreen').style.display = gameState.status === 'idle' ? 'block' : 'none';
   document.getElementById('categoriesScreen').style.display = gameState.status === 'categories' ? 'block' : 'none';
   document.getElementById('questionScreen').style.display = gameState.status === 'question' ? 'block' : 'none';
   document.getElementById('finishedScreen').style.display = gameState.status === 'finished' ? 'block' : 'none';
 
   if (gameState.status === 'categories') {
-    const diffArr = gameData[difficulty];
+    const diffArr = gameData[gameState.zestaw][difficulty];
     const offeredDiv = document.getElementById('offeredCategories');
     offeredDiv.innerHTML = '';
     gameState.offered.forEach(function(idx) {
@@ -197,7 +214,7 @@ function render() {
   }
 
   if (gameState.status === 'question') {
-    const q = gameData[difficulty][gameState.chosenIndex];
+    const q = gameData[gameState.zestaw][difficulty][gameState.chosenIndex];
     document.getElementById('qCategory').textContent = q.kategoria;
     document.getElementById('qText').textContent = q.pytanie;
 
@@ -232,7 +249,7 @@ function render() {
 function startRound() {
   const difficulty = getDifficulty(gameState.round);
   if (!difficulty) return;
-  const diffArr = gameData[difficulty];
+  const diffArr = gameData[gameState.zestaw][difficulty];
   const used = (gameState.used && gameState.used[difficulty]) || [];
   const available = diffArr.map(function(_, i) { return i; }).filter(function(i) { return used.indexOf(i) === -1; });
 
@@ -271,7 +288,8 @@ function endRound() {
       round: nextRound,
       status: 'idle',
       offered: null,
-      chosenIndex: null
+      chosenIndex: null,
+      mediaRevealed: false
     });
   }
 }

@@ -95,12 +95,12 @@
 <body>
 <div class="wrap">
   <h1>Postaw na milion</h1>
-  <div id="content"><div class="waiting">Czekam na rozpoczecie rundy...</div></div>
+  <div id="content"><div class="waiting">Czekam...</div></div>
 </div>
 
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
-<script src="dane.js"></script>
+<script src="dane.js?v=3"></script>
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyCI_URtq3UQA5oEvqMaHrAnG9YID5zTTSw",
@@ -164,7 +164,11 @@ db.ref('game').on('value', function(snap) {
 });
 
 function render(state) {
-  if (!state || state.status === 'idle') {
+  if (!state || state.status === 'selectSet') {
+    content.innerHTML = '<div class="waiting">Czekam, az prowadzacy wybierze zestaw pytan...</div>';
+    return;
+  }
+  if (state.status === 'idle') {
     content.innerHTML = '<div class="waiting">Czekam na rozpoczecie rundy...</div>';
     return;
   }
@@ -174,7 +178,7 @@ function render(state) {
   }
 
   const difficulty = getDifficulty(state.round);
-  const diffArr = gameData[difficulty];
+  const diffArr = gameData[state.zestaw][difficulty];
 
   if (state.status === 'categories') {
     if (state.chosenIndex === null || state.chosenIndex === undefined) {
@@ -189,7 +193,7 @@ function render(state) {
     return;
   }
 
- if (state.status === 'question') {
+  if (state.status === 'question') {
     const q = diffArr[state.chosenIndex];
     const litery = ['A', 'B', 'C', 'D'];
 

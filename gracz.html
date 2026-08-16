@@ -49,17 +49,19 @@
     overflow: hidden;
   }
   .qs-media {
-    width: 48%;
+    flex: 0 0 auto;
+    max-width: 65%;
     border-right: 2px solid #2a3550;
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 4px;
-    transition: width 0.2s ease;
+    overflow: hidden;
   }
   .qs-media img, .qs-media video {
+    height: 100%;
+    width: auto;
     max-width: 100%;
-    max-height: 100%;
     border-radius: 10px;
     object-fit: contain;
   }
@@ -88,7 +90,8 @@
   @media (orientation: portrait) {
     .qs-header { font-size: 1.4em; padding: 16px; }
     .qs-body { flex-direction: column; }
-    .qs-media { width: 100% !important; height: 35%; border-right: none; border-bottom: 2px solid #2a3550; }
+    .qs-media { flex: 0 0 auto; max-width: 100% !important; width: 100% !important; height: 35%; border-right: none; border-bottom: 2px solid #2a3550; }
+    .qs-media img, .qs-media video { height: 100%; width: auto; max-width: 100%; }
     .qs-cell { padding: 12px 16px; }
   }
 </style>
@@ -168,18 +171,6 @@ function toggleFullscreen() {
   }
 }
 
-function adjustMediaWidth(slot, w, h) {
-  if (!w || !h || !slot || !slot.isConnected) return;
-  if (!window.matchMedia('(orientation: landscape)').matches) return;
-  const body = slot.parentElement;
-  const bodyHeight = body.clientHeight;
-  const bodyWidth = body.clientWidth;
-  const idealWidth = bodyHeight * (w / h);
-  let pct = (idealWidth / bodyWidth) * 100;
-  pct = Math.max(20, Math.min(60, pct));
-  slot.style.width = pct + '%';
-}
-
 db.ref('game').on('value', function(snap) {
   const state = snap.val();
   render(state);
@@ -246,26 +237,9 @@ function render(state) {
       resolveMedia(mediaToShow).then(function(result) {
         if (!result || !slot.isConnected) return;
         if (result.type === 'video') {
-          const video = document.createElement('video');
-          video.src = result.url;
-          video.autoplay = true;
-          video.loop = true;
-          video.playsInline = true;
-          video.ontouchend = function() { this.controls = true; };
-          video.onclick = function() { this.controls = true; };
-          video.addEventListener('loadedmetadata', function() {
-            adjustMediaWidth(slot, video.videoWidth, video.videoHeight);
-          });
-          slot.innerHTML = '';
-          slot.appendChild(video);
+          slot.innerHTML = '<video src="' + result.url + '" autoplay loop playsinline ontouchend="this.controls=true" onclick="this.controls=true"></video>';
         } else {
-          const img = document.createElement('img');
-          img.src = result.url;
-          img.addEventListener('load', function() {
-            adjustMediaWidth(slot, img.naturalWidth, img.naturalHeight);
-          });
-          slot.innerHTML = '';
-          slot.appendChild(img);
+          slot.innerHTML = '<img src="' + result.url + '">';
         }
       });
     }

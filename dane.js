@@ -53,15 +53,15 @@ zestaw1: {
   bardzo_trudne: [
     // UZUPEŁNIJ minimum 10 pozycji
     { kategoria: "Historia", pytanie: "Kto po kolei był prezydentem w okresie międzywojennym w Polsce?", odpowiedzi: ["Gabriel Narutowicz->Stanisław Wojciechowski->Ignacy Mościcki", "Gabriel Narutowicz->Maciej Rataj->Józef Piłsudski", "Stanisław Wojciechowski->Józef Piłsudski->Ignacy Mościcki", "Maciej Rataj->Ignacy Mościcki-> Józef Piłsudski"], poprawna: 0, media: "b101" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
+    { kategoria: "Współczesna polityka", pytanie: "Ile czasu Grzegorz Schetyna sprawował urząd prezydenta Polski?", odpowiedzi: ["30 dni", "kilka godzin", "nigdy nie sprawował funkcji prezydenta", "niecały tydzień"], poprawna: 0, media: "b103" },
+    { kategoria: "Alcomindz", pytanie: "Co Kietlon kupi suce?", odpowiedzi: ["Wszycho", "Frugo", "Lambo", "Cycki"], poprawna: 1, media: "b105" },
+    { kategoria: "Motoryzacja", pytanie: "Co to za część samochodu?", odpowiedzi: ["Zawór ERG", "Czujniki Halla", "Tłumik drgań", "Wysprzęglik"], poprawna: 0, media: "b108" },
+    { kategoria: "Daty", pytanie: "W którym roku zakończyła się wojna secesyjna?", odpowiedzi: ["1865", "1868", "1862", "1864"], poprawna: 0, media: "b111" },
+    { kategoria: "Geje", pytanie: "Która z tych osób nie jest (zadeklarowanym) gejem?", odpowiedzi: ["Tim Cook", "Elton Jhon", "Andrzej Piaseczny", "Jensen Huang"], poprawna: 3, media: "b114" },
+    { kategoria: "Żydzi", pytanie: "Która z tych nazw nie jest odmianą judaizmu?", odpowiedzi: ["Falasza", "Karaimski", "Chasydyzm", "Therawada"], poprawna: 3, media: "b119" },
+    { kategoria: "Starocie", pytanie: "Kto z nich nie był z składzie Rich Zone?", odpowiedzi: ["Izak", "Nitro", "Mandzio", "Kolega Ignacy"], poprawna: 3, media: "b122" },
+    { kategoria: "Szczawnica", pytanie: "W jakich datach byliśmy w szczawnicy?", odpowiedzi: ["13-20 sierpnia", "14-21 sierpnia", "12-20 sierpnia", "14-22 sierpnia"], poprawna: 0, media: "b127" },
+    { kategoria: "Tiktok", pytanie: "Ile około jest aktywnych użytkowników Tiktoka miesięcznie w Europie?", odpowiedzi: ["200 mln", "180 mln", "220 mln", "160 mln"], poprawna: 0, media: "b130" },
   ]
 },
 

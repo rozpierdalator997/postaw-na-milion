@@ -152,16 +152,16 @@ zestaw1: {
 
   trudne: [
     // UZUPEŁNIJ minimum 10 pozycji
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
+    { kategoria: "WOS", pytanie: "Kto w Polsce ma władzę wykonawczą?", odpowiedzi: ["Prezydent i rząd", "Prezydent i sejm", "Prezydent i senat", "Sejm i senat"], poprawna: 0, media: "t302" },
+    { kategoria: "Ortografia", pytanie: "Która wersja jest poprawna?", odpowiedzi: ["grzegrzółka", "gżegżółka", "grzegrzułka", "gżegrzółka"], poprawna: 1, media: "t306" },
+    { kategoria: "Spotify", pytanie: "Kto ma najwięcej słuchaczy w miesiącu na spotify (sierpień)", odpowiedzi: ["Sentino", "Malik Montana", "Dawid Podsiadło", "Taco Hemingway"], poprawna: 2, media: "t307" },
+    { kategoria: "Narkotyki", pytanie: "Jaka jest nazwa systemiczna (czy jakoś tak) mefedronu?", odpowiedzi: ["3,4-metylenodioksymetamfetamina", "1-fenylopropan-2-amina", "ester metylowy kwasu (1R,2R,3S,5S)-3-benzoiloksy-8-metylo-8-azabicyklooktan-2-karboksylowego", "4-metylometkatynon"], poprawna: 3, media: "t313" },
+    { kategoria: "Historia", pytanie: "Kto zastał Polskę drewnianą a zostawił murowaną?", odpowiedzi: ["Zygmunt I Stary", "Kazimierz III Wielki", "Władysław I Łokietek", "Mieszko III Stary"], poprawna: 1, media: "t315" },
+    { kategoria: "Klasyki Internetu", pytanie: "Kto jest autorem słynnej serii 'Ukryty Polski Megamix'", odpowiedzi: ["Cyber Marian", "Kabaret Czwarta Fala", "Chwytak TV", "Z Dvpy"], poprawna: 0, media: "t318" },
+    { kategoria: "Archaizmy", pytanie: "Który z tych archaizmów oznacza kobietę?", odpowiedzi: ["białogłowa", "babizna", "beremuszka", "sławiena"], poprawna: 0, media: "t320" },
+    { kategoria: "Wulkany", pytanie: "Który z tych wulkanów jest nieaktywny?", odpowiedzi: ["Ben Nevis", "Wezuwiusz", "Etna", "Teide"], poprawna: 0, media: "t323" },
+    { kategoria: "Marki", pytanie: "Która marka nie należy do grupy kapitałowej August Storck AG?", odpowiedzi: ["Mamba", "Toffifie", "Knoppers", "Snickers"], poprawna: 3, media: "t326" },
+    { kategoria: "Symbole", pytanie: "W których latach głównie spopularyzował się ten symbol?", odpowiedzi: ["Lata 60 XX w.", "Lata 50 XX w.", "Lata 80 XX w.", "Lata 70 XX w."], poprawna: 0, media: "t329" },
   ],
 
   bardzo_trudne: [

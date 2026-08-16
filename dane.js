@@ -138,16 +138,16 @@ zestaw1: {
 
   srednie: [
     // UZUPEŁNIJ minimum 10 pozycji — skopiuj wzór z grupy "latwe" i podmień treść
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
+    { kategoria: "Waluta", pytanie: "Jakiego kraju jest to waluta?", odpowiedzi: ["Korea Północna", "Chiny", "Tajlandia", "Rosja"], poprawna: 1, media: "s302" },
+    { kategoria: "Chemia", pytanie: "Au - jaki to pierwiastek chemiczny?", odpowiedzi: ["Srebro", "Platyna", "Złoto", "Żelazo"], poprawna: 2, media: "s306" },
+    { kategoria: "Polityka", pytanie: "'Pan jest zerem, panie pośle, panie Ziobro' - kto wypowiedział te słowa?", odpowiedzi: ["Leszek Miller", "Donald Tusk", "Bronisław Komorowski", "Lech Wałęsa"], poprawna: 0, media: "s307" },
+    { kategoria: "Filmy", pytanie: "W którym z tych filmów nie grał Johnny Depp?", odpowiedzi: ["Piraci z Karaibów", "Charlie i fabryka czekolady", "Edward Nożycoręki", "Mroczny Rycerz"], poprawna: 3, media: "s313" },
+    { kategoria: "Stawonogi", pytanie: "Ile par oczu ma typowy pająk?", odpowiedzi: ["4", "8", "6", "3"], poprawna: 0, media: "s315" },
+    { kategoria: "Grupy GRB", pytanie: "Kto znajduje się na zdjęciu profilowym grupy Ludzie?", odpowiedzi: ["Szymi", "Pati", "Sentino", "Belmondo"], poprawna: 1, media: "s318", mediaOdkryte: "s318o" },
+    { kategoria: "Zdjęcia które mówią", pytanie: "Jakie słowa zostały wypowiedziane na tym filmiku?", odpowiedzi: ["Sutryk ty chuju", "Sutryk ty cwelu", "Sutryk chuju", "Sutryk ty chuju jebany"], poprawna: 0, media: "s320", mediaOdkryte: "s320o" },
+    { kategoria: "Excel", pytanie: "Co się stanie, jeśli użyjesz formuły =JEŻELI.BŁĄD(10/0; 'Błąd dzielenia')?", odpowiedzi: ["Komórka wyświetli standardowy komunikat #DZIEL/0!", "Komórka pozostanie pusta", "Komórka wyświetli tekst 'Błąd dzielenia'", "Excel wyświetli okienko z ostrzeżeniem i zablokuje arkusz"], poprawna: 2, media: "s323" },
+    { kategoria: "Architektura", pytanie: "Jak się nazywają wielokondygnacyjne, drewniane wieże buddyjskie wywodzące się z indyjskich stup?", odpowiedzi: ["Shiro", "Minka", "Jinja", "Pagody"], poprawna: 3, media: "s326" },
+    { kategoria: "Witaminy", pytanie: "Brak jakiej witaminy powoduje kurzą ślepotę?", odpowiedzi: ["A", "B1", "C", "D"], poprawna: 0, media: "s329" },
   ],
 
   trudne: [

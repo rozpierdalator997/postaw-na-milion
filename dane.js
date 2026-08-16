@@ -38,16 +38,16 @@ zestaw1: {
 
   trudne: [
     // UZUPEŁNIJ minimum 10 pozycji
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
+    { kategoria: "Jedzenie", pytanie: "W jakiej skali mierzy się ostrość?", odpowiedzi: ["SHU", "BDI", "MBI", "GSES"], poprawna: 0, media: "t101" },
+    { kategoria: "Kobiety", pytanie: "Ile krwi traci kobieta podczas miesiączki?", odpowiedzi: ["1 litr", "30-80 ml", "100-200 ml", "nie traci krwi, jest to tylko czerwona błona śluzowa macicy i śluz"], poprawna: 1, media: "t103" },
+    { kategoria: "Karta wędkarska", pytanie: "Jaką należy zachować odległość od budowli i urządzeń hydrotechnicznych podczas amatorskiego połowu ryb?", odpowiedzi: ["100 metrów", "Żadną, o ile nie ma tablicy ostrzegawczej", "30 metrów", "50 metrów"], poprawna: 3, media: "t105" },
+    { kategoria: "Filmy", pytanie: "Który film ma najwięcej gwiazdek na filmwebie?", odpowiedzi: ["Ojciec Chrzestny", "Odyseja (Nolana)", "Chłopaki nie płaczą", "Listy do M"], poprawna: 0, media: "t108" },
+    { kategoria: "Roślinność", pytanie: "Co to za kwiatek?", odpowiedzi: ["Bratek", "Krokus", "Hiacynt", "Bergenia"], poprawna: 0, media: "t111" },
+    { kategoria: "AI", pytanie: "Który z wymienionych modeli AI jest przeznaczony do modulacji i tworzenia realistycznych głosów?", odpowiedzi: ["Claude Opus 5", "OpenAI Sora 2", "Eleven v3", "Perplexity AI"], poprawna: 2, media: "t114" },
+    { kategoria: "Straszne gówno", pytanie: "Jak się nazywa ten brainrot?", odpowiedzi: ["boneca ambalabu", "trippi troppi", "tung tung tung sahur", "lirili larila"], poprawna: 2, media: "t119" },
+    { kategoria: "Forbes", pytanie: "Jaki trzeba mieć majątek, żeby znaleźć się w top 100 najbogatszych Polaków?", odpowiedzi: ["500 mln zł", "5 mld zł", "1 mld zł", "10 mld zł"], poprawna: 2, media: "t122" },
+    { kategoria: "Nauka", pytanie: "Czym zajmuje się heraldyka?", odpowiedzi: ["Badaniem pochodzenia oraz pokrewieństwa rodów", "Analizą autentyczności dawnych dokumentów i podpisów", "Badaniem historii i zasad projektowania herbów", "Badaniem starożytnych i średniowiecznych inskrypcji na materiale twardym"], poprawna: 2, media: "t127" },
+    { kategoria: "Chmury", pytanie: "Jak się nazywa ten rodzaj chmury?", odpowiedzi: ["Stratus", "Cirrocumulus", "Altocumulus", "Altostratus"], poprawna: 1, media: "t130" },
   ],
 
   bardzo_trudne: [

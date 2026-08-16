@@ -109,16 +109,16 @@ zestaw1: {
 
   bardzo_trudne: [
     // UZUPEŁNIJ minimum 10 pozycji
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
+    { kategoria: "Ekonomia", pytanie: "Co prezentuje krzywa Phillipsa?", odpowiedzi: ["Zależność między popytem a podażą", "Zależność między stopą bezrobocia a wzrostem PKB", "Zależność między inflacją a bezrobociem", "Nie ma takiej krzywej"], poprawna: 2, media: "b204" },
+    { kategoria: "Minecraft", pytanie: "Ile czasu temu pojawił się ostatni materiał na kanale Youtube JJayJoker?", odpowiedzi: ["dalej nagrywa ale już z mniejszą widownią i nie o minecraftcie", "10 lat temu", "5 lat temu", "kilka miesięcy temu"], poprawna: 1, media: "b209" },
+    { kategoria: "Festiwale", pytanie: "W którym roku odbyła się pierwsza edycja festiwalu Woodstock?", odpowiedzi: ["1989", "1950", "1995", "1969"], poprawna: 3, media: "b210" },
+    { kategoria: "Łacińskie paremie", pytanie: "Która łacińska paremia oznacza 'Nie należy dawać posłuchu czczym głosom ludu.'", odpowiedzi: ["Executio iuris non habet iniuriam", "Ius civile vigilantibus scriptum est", "Nemo pro parte testatus, pro parte intestatus decedere potest", "Vanae voces populi non sunt audiendae"], poprawna: 3, media: "b212" },
+    { kategoria: "Wiadomości", pytanie: "Kogo oznaczył Wujek?", odpowiedzi: ["Szafri", "Wachu", "Tybin", "Borys"], poprawna: 3, media: "b216", mediaOdkryte: "b216o" },
+    { kategoria: "Rada Grabiszynka", pytanie: "Który duet nigdy nie był na grupie 'Rada Grabiszynka'?", odpowiedzi: ["Wachu oraz Pati", "Natsa oraz Wassyl", "Szafri oraz Wujek", "Andru oraz Lewy"], poprawna: 2, media: "b217" },
+    { kategoria: "Wrocław", pytanie: "Ile razy wykoleiły się tramwaje we Wrocławiu w 2025 roku?", odpowiedzi: ["24", "16", "20", "27"], poprawna: 0, media: "b221" },
+    { kategoria: "Temperatura", pytanie: "Jakie jest 0 absolutne w stopniach Celsjusza?", odpowiedzi: ["271,25", "273,15", "271,15", "273,25"], poprawna: 1, media: "b224" },
+    { kategoria: "Wrocław", pytanie: "Z jaką ulicą nie sąsiaduje ul. Wita Stwosza?", odpowiedzi: ["Kaznodziejska", "Łaciarska", "Biskupia", "Krowia"], poprawna: 0, media: "b225" },
+    { kategoria: "Szczawnica", pytanie: "Jakie 3 nienaruszalne zasady ustalił dvd na wyjazd do Szczawnicy XD", odpowiedzi: ["Staramy się nie robić syfu, nie palimy szlugów ani jointów w środku, staramy się zachować ciszę nocną bo dookoła są sąsiedzi", "Zakaz jarania szlugów w środku, nie wchodzimy do cudzych pokojów bez pukania, zmywamy po sobie naczynia", "Nie przesadzamy z alkoholem, nie jaramy w środku kiepów ani jointów, na bieżąco sprzątamy syf który zrobiliśmy", "Każdy zabiera ze sobą klapki i nie ubiera butów wewnątrz, nie wchodzimy sobie na głowę, palimy w środku cokolwiek chcemy byle nie kiepy i jointy"], poprawna: 3, media: "b228", mediaOdkryte: "b228o" },
   ]
 },
 

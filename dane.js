@@ -81,16 +81,16 @@ zestaw1: {
 
   srednie: [
     // UZUPEŁNIJ minimum 10 pozycji — skopiuj wzór z grupy "latwe" i podmień treść
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
+    { kategoria: "Miętus", pytanie: "Ile % miał pierwszy miętus?", odpowiedzi: ["38%", "35%", "42%", "40%"], poprawna: 3, media: "s204", mediaOdkryte: "s204o" },
+    { kategoria: "Mężczyźni", pytanie: "Ile wynosi średnia europejska długość siura?", odpowiedzi: ["8-9 cm", "13-14,5 cm", "16-18 cm", "około 20 cm"], poprawna: 1, media: "s209" },
+    { kategoria: "Matematyka", pytanie: "Jaki jest wzór na deltę?", odpowiedzi: ["b - 4ac", "b² - 4c", "b² - 4ac", "b² - 4a"], poprawna: 2, media: "s210" },
+    { kategoria: "Zioło", pytanie: "Która część konopi indyjskiej (marihuany) zawiera najwyższe stężenie kannabinoidów, takich jak THC?", odpowiedzi: ["Korzenie", "Łodyga", "Liście wiatrakowe", "Żywiczne trichomy na kwiatach"], poprawna: 3, media: "s212" },
+    { kategoria: "Język angielski", pytanie: "Który z tych zwrotów oznacza 'zdradzić tajemnicę'?", odpowiedzi: ["Give in", "Give away", "Make up", "Make out"], poprawna: 1, media: "s216" },
+    { kategoria: "Biologia", pytanie: "Które z tych pytań trzeba zadać, aby otrzymać odpowiedź 'Aorta'?", odpowiedzi: ["Która struktura anatomiczna oddziela prawą część serca od lewej, zapobiegając mieszaniu krwi?", "Które naczynie krwionośne doprowadza odtlenowaną krew bezpośrednio z tkanek do prawego przedsionka?", "Jak nazywa się główny pień chłonny zbierający limfę z dolnej i lewej połowy ciała?", "Uszkodzenie którego naczynia krwionośnego skutkuje u pacjenta objawem objawu de Musseta (rytmicznym drżeniem głowy w takt tętna)?"], poprawna: 3, media: "s217" },
+    { kategoria: "Dolny Śląsk", pytanie: "W jakim kierunku świata leży Legnica od Wrocławia?", odpowiedzi: ["Północ", "Północny-wschód", "Południowy-zachód", "Zachód"], poprawna: 3, media: "s221" },
+    { kategoria: "Loldle", pytanie: "Jak wybraliście tę kategorię to wiecie o co chodzi", odpowiedzi: ["Zilean", "Ekko", "Bard", "Zaahen"], poprawna: 1, media: "s224", mediaOdkryte: "s224o" },
+    { kategoria: "Apple", pytanie: "Jaka jest aktualnie najnowsza seria Iphone'a?", odpowiedzi: ["Iphone 16", "Iphone 17", "Iphone 18", "Iphone Omega"], poprawna: 1, media: "s225" },
+    { kategoria: "Między Bogiem a prawdą", pytanie: "Jaka cena jest uczciwa?", odpowiedzi: ["Gratis", "Za darmo", "Darmowo", "Friko"], poprawna: 0, media: "s228" },
   ],
 
   trudne: [

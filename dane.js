@@ -166,16 +166,16 @@ zestaw1: {
 
   bardzo_trudne: [
     // UZUPEŁNIJ minimum 10 pozycji
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
+    { kategoria: "Rap", pytanie: "Co to za wykonawca", odpowiedzi: ["Ero", "Pelson", "Włodi", "Wilku"], poprawna: 3, media: "b302" },
+    { kategoria: "Anatomia", pytanie: "Co to za część ciała?", odpowiedzi: ["pectus", "thorax", "cranium", "ventriculus"], poprawna: 0, media: "b306" },
+    { kategoria: "Logika", pytanie: "Które z poniższych zdań złożonych jest fałszywe?", odpowiedzi: ["Jeśli 2+2=4, to Warszawa jest stolicą Polski.", "Jeśli 2+2=5, to Warszawa jest stolicą Polski.", "Jeśli 2+2=5, to Londyn leży w Azji.", "Jeśli 2+2=4, to Londyn leży w Azji."], poprawna: 3, media: "b307" },
+    { kategoria: "Obrazy", pytanie: "Jaki jest tytuł tego obrazu Jana Matejki?", odpowiedzi: ["Kazanie Skargi", "Rejtan - Upadek Polski", "Unia Lubelska", "Konstytucja 3 maja 1791 roku"], poprawna: 0, media: "b313" },
+    { kategoria: "Muzyka", pytanie: "Jaka jest druga najbardziej popularna piosenka tych co nagrali 'Somebody that I used to know'? (na podstawie wyświeleń na yt)", odpowiedzi: ["Easy Way Out", "Bronte", "Eyes Wide Open", "Hearts A Mess"], poprawna: 3, media: "b315" },
+    { kategoria: "Język Polski", pytanie: "'Używać komputer' - jaki błąd językowy został tu popełniony?", odpowiedzi: ["Anakolut", "Solecyzm", "Makaronizm", "Malapropizm"], poprawna: 1, media: "b318" },
+    { kategoria: "Kapitan Bomba", pytanie: "Kto nigdy nie był poza granicami kosmosu?", odpowiedzi: ["Torpeda", "Sułtan", "Kardynał Mateo", "Bengalowie"], poprawna: 1, media: "b320" },
+    { kategoria: "Uliczny rap", pytanie: "Która z tych ksywek jest wymyślona?", odpowiedzi: ["Wieszak ZDR", "Songo TA", "Martin JSP", "Murzyn BSB"], poprawna: 3, media: "b323" },
+    { kategoria: "Szlugi", pytanie: "W którym z tych zestawów substancji, nie ma toksycznej substancji, która jest w dymie papierosowym?", odpowiedzi: ["aceton, naftyloamina, benzopiren, butan", "amoniak, toluen, uretan, akrydyna", "fenol, krypton, piren, tuloidyna", "dimetylonitrozoamina, DDT, naftalina, kadm"], poprawna: 2, media: "b326" },
+    { kategoria: "Sporty wyczynowe", pytanie: "Jakie są dystanse w 10-krotnym Ironmanie?", odpowiedzi: ["Pływanie: 38 km, Rower: 1600 km, Bieg: 422 km", "Pływanie: 40 km, Rower: 1600 km, Bieg: 422 km", "Pływanie: 38 km , Rower: 1800 km, Bieg: 422 km", "Pływanie: 40 km, Rower: 1800 km, Bieg: 422 km"], poprawna: 2, media: "b329" },
   ]
 },
 };

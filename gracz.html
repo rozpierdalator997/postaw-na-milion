@@ -237,7 +237,8 @@ function render(state) {
     const mediaToShow = (state.mediaRevealed && q.mediaOdkryte) ? q.mediaOdkryte : q.media;
 
     function fontSizeFor(len) {
-      if (len <= 160) return '3em';
+      if (len <= 70) return '3em';
+      if (len <= 160) return '2.5em';
       return '1.3em';
     }
 

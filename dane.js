@@ -52,7 +52,7 @@ zestaw1: {
 
   bardzo_trudne: [
     // UZUPEŁNIJ minimum 10 pozycji
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
+    { kategoria: "Historia", pytanie: "Kto po kolei był prezydentem w okresie międzywojennym w Polsce?", odpowiedzi: ["Gabriel Narutowicz->Stanisław Wojciechowski->Ignacy Mościcki", "Gabriel Narutowicz->Maciej Rataj->Józef Piłsudski", "Stanisław Wojciechowski->Józef Piłsudski->Ignacy Mościcki", "Maciej Rataj->Ignacy Mościcki-> Józef Piłsudski"], poprawna: 0, media: "b101" },
     { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
     { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
     { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },

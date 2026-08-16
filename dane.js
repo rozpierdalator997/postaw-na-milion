@@ -124,16 +124,16 @@ zestaw1: {
 
     zestaw3: {
     latwe: [
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
+    { kategoria: "Podróże", pytanie: "Jaka jest kolejność miejscowości na wyjazd?", odpowiedzi: ["Szczawnica->Brenna->Przesieka-> Rybarzowice->Brenna", "Szczawnica->Przesieka->Brenna-> Rybarzowice->Brenna", "Szczawnica->Brenno->Przesieka-> Rybarzawice->Brenna", "Szczawnica->Brenna->Przesieka-> Rybarzawice->Brenna"], poprawna: 0, media: "l302" },
+    { kategoria: "Oceany", pytanie: "Jaki jest największy powierzchniowo ocean na Ziemii?", odpowiedzi: ["Spokojny", "Indyjski", "Arktyczny", "Atlantycki"], poprawna: 0, media: "l306" },
+    { kategoria: "Wyjazd", pytanie: "Czemu ty się kurwa wylałeś na ścianę do chuja wafla?", odpowiedzi: ["Bo tak", "Bo ja", "ebleuueeuu", "Lecimy z fiutem"], poprawna: 1, media: "l307" },
+    { kategoria: "Ludność", pytanie: "O ilu mieszkańców Niemcy mają więcej od Polski? (2026)", odpowiedzi: ["46 mln", "24 mln", "33 mln", "55 mln"], poprawna: 0, media: "l313" },
+    { kategoria: "Mitologia grecka", pytanie: "Jak się nazywa bogini mądrości?", odpowiedzi: ["Artemida", "Hera", "Afrodyta", "Atena"], poprawna: 3, media: "l315" },
+    { kategoria: "Logo firm", pytanie: "Jakiej firmy jest to logo?", odpowiedzi: ["BNP Paribas", "Alior Bank", "Santander Bank", "Kasa Stefczyka"], poprawna: 1, media: "l318" },
+    { kategoria: "Biologia", pytanie: "Jak nazywa się proces, w którym rośliny zielone wytwarzają pokarm (glukozę) ze światła słonecznego, wody i dwutlenku węgla?", odpowiedzi: ["Oddychanie komórkowe", "Fotosynteza", "Transpiracja", "Kiełkowanie"], poprawna: 1, media: "l320" },
+    { kategoria: "Religia", pytanie: "Jak nazywa się modlitwa Pańska?", odpowiedzi: ["Ojcze nasz", "Zdrowaś Mario", "Aniele Boży", "Chwała Ojcu"], poprawna: 0, media: "l323" },
+    { kategoria: "Wyjazdy", pytanie: "Z którego wyjazdu jest to zdjęcie?", odpowiedzi: ["Szczawnica", "Przesieka", "Brenna", "Rybarzowice"], poprawna: 1, media: "l326" },
+    { kategoria: "Rasa", pytanie: "Co to za rasa psa?", odpowiedzi: ["Rottweiler", "Dog", "Bulterier", "Doberman"], poprawna: 3, media: "l329" },
   ],
 
   srednie: [

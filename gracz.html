@@ -210,11 +210,11 @@ function render(state) {
 
     const maxLen = Math.max.apply(null, q.odpowiedzi.map(function(a) { return a.length; }));
     let answerFontSize;
-    if (maxLen <= 12) answerFontSize = '2.4em';
-    else if (maxLen <= 20) answerFontSize = '2em';
-    else if (maxLen <= 35) answerFontSize = '1.5em';
-    else if (maxLen <= 55) answerFontSize = '1.15em';
-    else answerFontSize = '0.9em';
+    if (maxLen <= 12) answerFontSize = '3.2em';
+    else if (maxLen <= 20) answerFontSize = '2.6em';
+    else if (maxLen <= 35) answerFontSize = '1.9em';
+    else if (maxLen <= 55) answerFontSize = '1.3em';
+    else answerFontSize = '1em';
 
     let answersHtml = '';
     q.odpowiedzi.forEach(function(a, i) {

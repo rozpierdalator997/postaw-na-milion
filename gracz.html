@@ -79,8 +79,7 @@
     font-size: 1em;
     text-align: left;
     line-height: 1.25;
-    overflow-wrap: break-word;
-    word-break: break-word;
+    overflow: hidden;
   }
   .qs-cell .letter {
     font-weight: bold;
@@ -173,6 +172,29 @@ function toggleFullscreen() {
   }
 }
 
+function fitCellFont(cell) {
+  const computed = window.getComputedStyle(cell);
+  let fontSize = parseFloat(computed.fontSize);
+  const paddingH = parseFloat(computed.paddingLeft) + parseFloat(computed.paddingRight);
+  const innerWidth = cell.clientWidth - paddingH - 40;
+  const words = cell.textContent.trim().split(/\s+/);
+  if (!fitCellFont._canvas) fitCellFont._canvas = document.createElement('canvas');
+  const ctx = fitCellFont._canvas.getContext('2d');
+  let guard = 0;
+  while (guard < 40 && fontSize > 13) {
+    ctx.font = fontSize + 'px ' + computed.fontFamily;
+    let maxWordWidth = 0;
+    words.forEach(function(w) {
+      const width = ctx.measureText(w).width;
+      if (width > maxWordWidth) maxWordWidth = width;
+    });
+    if (maxWordWidth <= innerWidth) break;
+    fontSize -= 1;
+    guard++;
+  }
+  cell.style.fontSize = fontSize + 'px';
+}
+
 db.ref('game').on('value', function(snap) {
   const state = snap.val();
   render(state);
@@ -215,7 +237,9 @@ function render(state) {
     const mediaToShow = (state.mediaRevealed && q.mediaOdkryte) ? q.mediaOdkryte : q.media;
 
     function fontSizeFor(len) {
-      if (len <= 28) return '3.6em';
+      if (len <= 10) return '3.6em';
+      if (len <= 18) return '3em';
+      if (len <= 28) return '2.5em';
       if (len <= 42) return '2em';
       if (len <= 60) return '1.6em';
       return '1.3em';
@@ -232,6 +256,10 @@ function render(state) {
     }
 
     content.innerHTML = '<div class="qs-fullscreen"><div class="qs-header">' + q.pytanie + '</div><div class="qs-body">' + mediaSlotHtml + '<div class="qs-answers">' + answersHtml + '</div></div></div>';
+
+    requestAnimationFrame(function() {
+      document.querySelectorAll('.qs-cell').forEach(fitCellFont);
+    });
 
     if (mediaToShow) {
       const slot = document.getElementById('qsMediaSlot');

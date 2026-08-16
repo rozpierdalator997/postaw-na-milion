@@ -95,16 +95,16 @@ zestaw1: {
 
   trudne: [
     // UZUPEŁNIJ minimum 10 pozycji
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
-    { kategoria: "", pytanie: "", odpowiedzi: ["", "", "", ""], poprawna: 0, media: "" },
+    { kategoria: "League of Legends", pytanie: "Jak się nazywa ten przedmiot?", odpowiedzi: ["Edge of night", "Immortal shieldbow", "Staff of flowing water", "Lich bane"], poprawna: 0, media: "t204" },
+    { kategoria: "Kanały Youtube", pytanie: "Który polski kanał na Youtube jest na 5 miejscu jeśli chodzi o liczbę subskrybcji? (wyłączając jakieś pojebane kanały dla dzieci)", odpowiedzi: ["Step Records", "Stuu", "reZigiusz", "Naruciak"], poprawna: 0, media: "t209" },
+    { kategoria: "Piłka nożna", pytanie: "Przeciwko jakiej drużynie Lewy strzelił 5 bramek w 9 minut?", odpowiedzi: ["Wolfsburg", "RB Lipsk", "VfB Stuttgart", "Eintracht Frankfurt"], poprawna: 0, media: "t210" },
+    { kategoria: "Sport", pytanie: "Kto jako pierwszy podniósł 500kg w martwym ciągu?", odpowiedzi: ["Hafþór Júlíus Björnsson", "Mariusz Pudzianowski", "Eddie Hall", "Do tej pory jeszcze nikt nie podniósł takiego ciężaru"], poprawna: 2, media: "t212" },
+    { kategoria: "Gówno", pytanie: "W którym roku Musical.ly zmieniło nazwę na TikTok?", odpowiedzi: ["2018", "2017", "2019", "2016"], poprawna: 0, media: "t216" },
+    { kategoria: "Jazdon", pytanie: "Co tam jest napisane?", odpowiedzi: ["Wykurwiście niskie ceny", "Najniższe ceny", "Zajebiście niskie ceny", "Królestwo promocji"], poprawna: 2, media: "t217", mediaOdkryte: "t217o" },
+    { kategoria: "Prawo drogowe", pytanie: "Jaka jest kara za przekroczenie prędkości do 10 km/h?", odpowiedzi: ["nie ma żadnej kary do takiej prędkości", "100 zł", "50 zł", "pouczenie"], poprawna: 2, media: "t221" },
+    { kategoria: "Twaróg", pytanie: "Który z tych makroskładników jest prawdziwy dla twarogu chudego z Piątnicy?", odpowiedzi: ["Białko - 20g/100g", "Węglowodany - 3,3g/100g", "Tłuszcz - 0,1g/100g", "Żadna z tych odpowiedzi nie jest poprawna"], poprawna: 3, media: "t224" },
+    { kategoria: "Siatkówka", pytanie: "Ile złotych medali na mistrzostwach świata ma Polska reprezentacja mężczyzn w siatkówce?", odpowiedzi: ["3", "4", "5", "6"], poprawna: 0, media: "t225" },
+    { kategoria: "Historia Ziemi", pytanie: "Jak nazywa się era geologiczna, która była przed obecną erą?", odpowiedzi: ["Mezozoik", "Paleozoik", "Kenozoik", "Proterozoik"], poprawna: 0, media: "t228" },
   ],
 
   bardzo_trudne: [

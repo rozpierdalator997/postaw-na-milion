@@ -63,7 +63,7 @@
     display: flex;
     align-items: flex-start;
     padding: 20px 24px;
-    font-size: 1em;
+    font-size: 1.4em;
     text-align: left;
     line-height: 1.25;
     overflow: hidden;
@@ -225,6 +225,20 @@ function jumpTo(i) {
   document.getElementById('jumpPanel').classList.remove('open');
 }
 
+function fitCellFont(cell) {
+  let fontSize = 70;
+  const minFontSize = 13;
+  cell.style.fontSize = fontSize + 'px';
+  while (fontSize > minFontSize && (cell.scrollHeight > cell.clientHeight + 1 || cell.scrollWidth > cell.clientWidth + 1)) {
+    fontSize--;
+    cell.style.fontSize = fontSize + 'px';
+  }
+}
+
+function fitAllCells() {
+  document.querySelectorAll('.qs-cell').forEach(fitCellFont);
+}
+
 function render() {
   const item = allQuestions[currentIndex];
   const q = item.q;
@@ -236,19 +250,10 @@ function render() {
 
   const mediaToShow = q.media;
 
-  function fontSizeFor(len) {
-    if (len <= 10) return '3.6em';
-    if (len <= 18) return '3em';
-    if (len <= 28) return '2.5em';
-    if (len <= 42) return '2em';
-    if (len <= 60) return '1.6em';
-    return '1.3em';
-  }
-
   let answersHtml = '';
   q.odpowiedzi.forEach(function(a, i) {
     const isCorrect = i === q.poprawna;
-    answersHtml += '<div class="qs-cell' + (isCorrect ? ' correct' : '') + '" style="font-size:' + fontSizeFor(a.length) + '"><span class="letter">' + litery[i] + '.</span> ' + a + '</div>';
+    answersHtml += '<div class="qs-cell' + (isCorrect ? ' correct' : '') + '"><span class="letter">' + litery[i] + '.</span> ' + a + '</div>';
   });
 
   let mediaSlotHtml = '';
@@ -259,46 +264,33 @@ function render() {
   const content = document.getElementById('content');
   content.innerHTML = '<div class="qs-fullscreen"><div class="qs-header">' + q.pytanie + '</div><div class="qs-body">' + mediaSlotHtml + '<div class="qs-answers">' + answersHtml + '</div></div></div>';
 
-  requestAnimationFrame(function() {
-    document.querySelectorAll('.qs-cell').forEach(fitCellFont);
-  });
+  requestAnimationFrame(fitAllCells);
 
   if (mediaToShow) {
     const slot = document.getElementById('qsMediaSlot');
     resolveMedia(mediaToShow).then(function(result) {
       if (!result || !slot.isConnected) return;
       if (result.type === 'video') {
-        slot.innerHTML = '<video src="' + result.url + '" controls autoplay loop playsinline></video>';
+        const video = document.createElement('video');
+        video.controls = true;
+        video.autoplay = true;
+        video.loop = true;
+        video.playsInline = true;
+        video.addEventListener('loadedmetadata', fitAllCells);
+        video.src = result.url;
+        slot.innerHTML = '';
+        slot.appendChild(video);
       } else {
-        slot.innerHTML = '<img src="' + result.url + '">';
+        const img = document.createElement('img');
+        img.addEventListener('load', fitAllCells);
+        img.src = result.url;
+        slot.innerHTML = '';
+        slot.appendChild(img);
       }
     }).catch(function() {
       slot.innerHTML = '<div style="color:#e57373; padding:20px;">Brak pliku: ' + mediaToShow + '</div>';
     });
   }
-}
-
-function fitCellFont(cell) {
-  const computed = window.getComputedStyle(cell);
-  let fontSize = parseFloat(computed.fontSize);
-  const paddingH = parseFloat(computed.paddingLeft) + parseFloat(computed.paddingRight);
-  const innerWidth = cell.clientWidth - paddingH - 40;
-  const words = cell.textContent.trim().split(/\s+/);
-  if (!fitCellFont._canvas) fitCellFont._canvas = document.createElement('canvas');
-  const ctx = fitCellFont._canvas.getContext('2d');
-  let guard = 0;
-  while (guard < 40 && fontSize > 13) {
-    ctx.font = fontSize + 'px ' + computed.fontFamily;
-    let maxWordWidth = 0;
-    words.forEach(function(w) {
-      const width = ctx.measureText(w).width;
-      if (width > maxWordWidth) maxWordWidth = width;
-    });
-    if (maxWordWidth <= innerWidth) break;
-    fontSize -= 1;
-    guard++;
-  }
-  cell.style.fontSize = fontSize + 'px';
 }
 
 render();

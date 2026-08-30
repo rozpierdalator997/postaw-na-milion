@@ -76,7 +76,7 @@
     display: flex;
     align-items: flex-start;
     padding: 20px 24px;
-    font-size: 1em;
+    font-size: 1.4em;
     text-align: left;
     line-height: 1.25;
     overflow: hidden;
@@ -173,26 +173,17 @@ function toggleFullscreen() {
 }
 
 function fitCellFont(cell) {
-  const computed = window.getComputedStyle(cell);
-  let fontSize = parseFloat(computed.fontSize);
-  const paddingH = parseFloat(computed.paddingLeft) + parseFloat(computed.paddingRight);
-  const innerWidth = cell.clientWidth - paddingH - 40;
-  const words = cell.textContent.trim().split(/\s+/);
-  if (!fitCellFont._canvas) fitCellFont._canvas = document.createElement('canvas');
-  const ctx = fitCellFont._canvas.getContext('2d');
-  let guard = 0;
-  while (guard < 40 && fontSize > 13) {
-    ctx.font = fontSize + 'px ' + computed.fontFamily;
-    let maxWordWidth = 0;
-    words.forEach(function(w) {
-      const width = ctx.measureText(w).width;
-      if (width > maxWordWidth) maxWordWidth = width;
-    });
-    if (maxWordWidth <= innerWidth) break;
-    fontSize -= 1;
-    guard++;
-  }
+  let fontSize = 70;
+  const minFontSize = 13;
   cell.style.fontSize = fontSize + 'px';
+  while (fontSize > minFontSize && (cell.scrollHeight > cell.clientHeight + 1 || cell.scrollWidth > cell.clientWidth + 1)) {
+    fontSize--;
+    cell.style.fontSize = fontSize + 'px';
+  }
+}
+
+function fitAllCells() {
+  document.querySelectorAll('.qs-cell').forEach(fitCellFont);
 }
 
 db.ref('game').on('value', function(snap) {
@@ -236,15 +227,9 @@ function render(state) {
 
     const mediaToShow = (state.mediaRevealed && q.mediaOdkryte) ? q.mediaOdkryte : q.media;
 
-    function fontSizeFor(len) {
-      if (len <= 70) return '3em';
-      if (len <= 160) return '2.5em';
-      return '1.3em';
-    }
-
     let answersHtml = '';
     q.odpowiedzi.forEach(function(a, i) {
-      answersHtml += '<div class="qs-cell" style="font-size:' + fontSizeFor(a.length) + '"><span class="letter">' + litery[i] + '.</span> ' + a + '</div>';
+      answersHtml += '<div class="qs-cell"><span class="letter">' + litery[i] + '.</span> ' + a + '</div>';
     });
 
     let mediaSlotHtml = '';
@@ -252,25 +237,4 @@ function render(state) {
       mediaSlotHtml = '<div class="qs-media" id="qsMediaSlot"></div>';
     }
 
-    content.innerHTML = '<div class="qs-fullscreen"><div class="qs-header">' + q.pytanie + '</div><div class="qs-body">' + mediaSlotHtml + '<div class="qs-answers">' + answersHtml + '</div></div></div>';
-
-    requestAnimationFrame(function() {
-      document.querySelectorAll('.qs-cell').forEach(fitCellFont);
-    });
-
-    if (mediaToShow) {
-      const slot = document.getElementById('qsMediaSlot');
-      resolveMedia(mediaToShow).then(function(result) {
-        if (!result || !slot.isConnected) return;
-        if (result.type === 'video') {
-          slot.innerHTML = '<video src="' + result.url + '" autoplay loop playsinline ontouchend="this.controls=true" onclick="this.controls=true"></video>';
-        } else {
-          slot.innerHTML = '<img src="' + result.url + '">';
-        }
-      });
-    }
-  }
-}
-</script>
-</body>
-</html>
+    content.innerHTML = '<div class="qs-fullscreen"><div class="qs-header">' + q.pytanie + '</div><div class="qs-body">' + mediaSlotHtml + '<div

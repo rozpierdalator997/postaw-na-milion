@@ -237,4 +237,36 @@ function render(state) {
       mediaSlotHtml = '<div class="qs-media" id="qsMediaSlot"></div>';
     }
 
-    content.innerHTML = '<div class="qs-fullscreen"><div class="qs-header">' + q.pytanie + '</div><div class="qs-body">' + mediaSlotHtml + '<div
+    content.innerHTML = '<div class="qs-fullscreen"><div class="qs-header">' + q.pytanie + '</div><div class="qs-body">' + mediaSlotHtml + '<div class="qs-answers">' + answersHtml + '</div></div></div>';
+
+    requestAnimationFrame(fitAllCells);
+
+    if (mediaToShow) {
+      const slot = document.getElementById('qsMediaSlot');
+      resolveMedia(mediaToShow).then(function(result) {
+        if (!result || !slot.isConnected) return;
+        if (result.type === 'video') {
+          const video = document.createElement('video');
+          video.autoplay = true;
+          video.loop = true;
+          video.playsInline = true;
+          video.ontouchend = function() { this.controls = true; };
+          video.onclick = function() { this.controls = true; };
+          video.addEventListener('loadedmetadata', fitAllCells);
+          video.src = result.url;
+          slot.innerHTML = '';
+          slot.appendChild(video);
+        } else {
+          const img = document.createElement('img');
+          img.addEventListener('load', fitAllCells);
+          img.src = result.url;
+          slot.innerHTML = '';
+          slot.appendChild(img);
+        }
+      });
+    }
+  }
+}
+</script>
+</body>
+</html>

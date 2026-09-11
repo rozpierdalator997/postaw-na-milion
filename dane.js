@@ -10,7 +10,7 @@ const gameData = {
 
 zestaw1: {
     latwe: [
-    { kategoria: "Geografia", pytanie: "Jakiego kraju są te kontury?", odpowiedzi: ["Syria", "Polska", "Łotwa", "Uganda"], poprawna: 1, media: "l114" },
+    { kategoria: "Geografia", pytanie: "Jakiego kraju są te kontury?", odpowiedzi: ["Syria", "Polska", "Łotwa", "Uganda"], poprawna: 1, media: "l114", x: true },
     { kategoria: "Piłka nożna", pytanie: "Co to za piłkarz?", odpowiedzi: ["To nie piłkarz tylko jakiś murzyn", "Ousmane Dembele", "Eusébio da Silva Ferreira", "Franco Baresi"], poprawna: 1, media: "l103" },
     { kategoria: "Historia", pytanie: "W którym roku był chrzest Polski?", odpowiedzi: ["966", "996", "1410", "1000"], poprawna: 0, media: "l108" },
     { kategoria: "Filmy animowane", pytanie: "Tygrysica, Małpa, Żmija, Modliszka, jakie zwierzę jeszcze było w Wielkiej Piątce?", odpowiedzi: ["Czapla", "Żuraw", "Bocian", "Paw"], poprawna: 1, media: "l127" },
@@ -179,3 +179,5 @@ zestaw1: {
   ]
 },
 };
+
+const zawodnicy = ["Jan Kowalski", "Anna Nowak", "Piotr Zieliński"];

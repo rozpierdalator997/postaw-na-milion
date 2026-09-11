@@ -1,1 +1,241 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Postaw na milion — Finał (Ekran Gracza)</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #0b1220;
+    color: #f1f1f1;
+    min-height: 100vh;
+    display: flex; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .wrap { max-width: 600px; width: 100%; text-align: center; }
+  h1 { color: #d4af37; font-size: 1.4em; margin-bottom: 30px; }
+  .waiting { font-size: 1.2em; color: #999; }
 
+  .qs-fullscreen {
+    position: fixed;
+    inset: 0;
+    background: #0b1220;
+    display: flex;
+    flex-direction: column;
+  }
+  .qs-header {
+    padding: 24px 30px;
+    text-align: center;
+    font-size: 2em;
+    font-weight: bold;
+    color: #d4af37;
+    border-bottom: 2px solid #2a3550;
+    line-height: 1.3;
+  }
+  .qs-body {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+  }
+  .qs-media {
+    flex: 0 0 auto;
+    max-width: 65%;
+    border-right: 2px solid #2a3550;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+    overflow: hidden;
+  }
+  .qs-media img, .qs-media video {
+    height: 100%;
+    width: auto;
+    max-width: 100%;
+    border-radius: 10px;
+    object-fit: contain;
+  }
+  .qs-answers {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+  .qs-cell {
+    border: 1px solid #2a3550;
+    display: flex;
+    align-items: flex-start;
+    padding: 20px 24px;
+    font-size: 1.4em;
+    text-align: left;
+    line-height: 1.25;
+    overflow: hidden;
+  }
+  .qs-cell .letter {
+    font-weight: bold;
+    color: #d4af37;
+    margin-right: 16px;
+    font-size: 1.1em;
+    flex-shrink: 0;
+  }
+  @media (orientation: portrait) {
+    .qs-header { font-size: 1.4em; padding: 16px; }
+    .qs-body { flex-direction: column; }
+    .qs-media { flex: 0 0 auto; max-width: 100% !important; width: 100% !important; height: 35%; border-right: none; border-bottom: 2px solid #2a3550; }
+    .qs-media img, .qs-media video { height: 100%; width: auto; max-width: 100%; }
+    .qs-cell { padding: 12px 16px; }
+  }
+</style>
+</head>
+<body>
+<button id="fullscreenBtn" onclick="toggleFullscreen()" style="position:fixed; top:12px; right:12px; z-index:9999; background:#142238; border:2px solid #d4af37; color:#f1f1f1; padding:10px 14px; border-radius:8px; font-size:1.2em; cursor:pointer;">⛶</button>
+<div class="wrap">
+  <h1>Postaw na milion — Final</h1>
+  <div id="content"><div class="waiting">Czekam...</div></div>
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+<script src="dane.js?v=3"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyCI_URtq3UQA5oEvqMaHrAnG9YID5zTTSw",
+  authDomain: "postaw-na-milion-30154.firebaseapp.com",
+  databaseURL: "https://postaw-na-milion-30154-default-rtdb.europe-west1.firebasedatabase.app/",
+  projectId: "postaw-na-milion-30154",
+  storageBucket: "postaw-na-milion-30154.firebasestorage.app",
+  messagingSenderId: "892861421426",
+  appId: "1:892861421426:web:16e947880cbfad71f92feb"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+const content = document.getElementById('content');
+
+const MEDIA_CANDIDATES = [
+  { ext: 'jpg', type: 'image' },
+  { ext: 'jpeg', type: 'image' },
+  { ext: 'png', type: 'image' },
+  { ext: 'webp', type: 'image' },
+  { ext: 'gif', type: 'image' },
+  { ext: 'mp4', type: 'video' },
+  { ext: 'webm', type: 'video' }
+];
+const mediaCache = {};
+
+function resolveMedia(baseName) {
+  if (mediaCache[baseName]) return Promise.resolve(mediaCache[baseName]);
+  let i = 0;
+  function tryNext() {
+    if (i >= MEDIA_CANDIDATES.length) return Promise.resolve(null);
+    const c = MEDIA_CANDIDATES[i];
+    i++;
+    const url = 'media/' + baseName + '.' + c.ext;
+    return fetch(url, { method: 'HEAD' }).then(res => {
+      if (res.ok) {
+        const result = { url: url, type: c.type };
+        mediaCache[baseName] = result;
+        return result;
+      }
+      return tryNext();
+    }).catch(function() { return tryNext(); });
+  }
+  return tryNext();
+}
+
+const diffOrder = ['latwe', 'srednie', 'trudne', 'bardzo_trudne'];
+const finalQuestions = [];
+diffOrder.forEach(function(diff) {
+  Object.keys(gameData).forEach(function(zestaw) {
+    (gameData[zestaw][diff] || []).forEach(function(q) {
+      if (q.x) {
+        finalQuestions.push(Object.assign({}, q, { difficulty: diff, zestaw: zestaw }));
+      }
+    });
+  });
+});
+
+function toggleFullscreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen().catch(function() {});
+  } else {
+    document.exitFullscreen();
+  }
+}
+
+function fitCellFont(cell) {
+  let fontSize = 70;
+  const minFontSize = 13;
+  cell.style.fontSize = fontSize + 'px';
+  while (fontSize > minFontSize && (cell.scrollHeight > cell.clientHeight + 1 || cell.scrollWidth > cell.clientWidth + 1)) {
+    fontSize--;
+    cell.style.fontSize = fontSize + 'px';
+  }
+}
+
+function fitAllCells() {
+  document.querySelectorAll('.qs-cell').forEach(fitCellFont);
+}
+
+db.ref('final').on('value', function(snap) {
+  render(snap.val());
+});
+
+function render(state) {
+  if (!state || !state.showQuestion) {
+    content.innerHTML = '<div class="waiting">Czekam...</div>';
+    return;
+  }
+
+  const q = finalQuestions[state.currentIndex];
+  if (!q) {
+    content.innerHTML = '<div class="waiting">Czekam...</div>';
+    return;
+  }
+
+  const litery = ['A', 'B', 'C', 'D'];
+  const mediaToShow = (state.mediaRevealed && q.mediaOdkryte) ? q.mediaOdkryte : q.media;
+
+  let answersHtml = '';
+  q.odpowiedzi.forEach(function(a, i) {
+    answersHtml += '<div class="qs-cell"><span class="letter">' + litery[i] + '.</span> ' + a + '</div>';
+  });
+
+  let mediaSlotHtml = '';
+  if (mediaToShow) {
+    mediaSlotHtml = '<div class="qs-media" id="qsMediaSlot"></div>';
+  }
+
+  content.innerHTML = '<div class="qs-fullscreen"><div class="qs-header">' + q.pytanie + '</div><div class="qs-body">' + mediaSlotHtml + '<div class="qs-answers">' + answersHtml + '</div></div></div>';
+
+  requestAnimationFrame(fitAllCells);
+
+  if (mediaToShow) {
+    const slot = document.getElementById('qsMediaSlot');
+    resolveMedia(mediaToShow).then(function(result) {
+      if (!result || !slot.isConnected) return;
+      if (result.type === 'video') {
+        const video = document.createElement('video');
+        video.autoplay = true;
+        video.loop = true;
+        video.playsInline = true;
+        video.ontouchend = function() { this.controls = true; };
+        video.onclick = function() { this.controls = true; };
+        video.addEventListener('loadedmetadata', fitAllCells);
+        video.src = result.url;
+        slot.innerHTML = '';
+        slot.appendChild(video);
+      } else {
+        const img = document.createElement('img');
+        img.addEventListener('load', fitAllCells);
+        img.src = result.url;
+        slot.innerHTML = '';
+        slot.appendChild(img);
+      }
+    });
+  }
+}
+</script>
+</body>
+</html>

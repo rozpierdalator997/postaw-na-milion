@@ -90,7 +90,7 @@ zestaw1: {
     { kategoria: "Dolny Śląsk", pytanie: "W jakim kierunku świata leży Legnica od Wrocławia?", odpowiedzi: ["Północ", "Północny-wschód", "Południowy-zachód", "Zachód"], poprawna: 3, media: "s221" },
     { kategoria: "Loldle", pytanie: "Jak wybraliście tę kategorię to wiecie o co chodzi", odpowiedzi: ["Zilean", "Ekko", "Bard", "Zaahen"], poprawna: 1, media: "s224", mediaOdkryte: "s224o" },
     { kategoria: "Apple", pytanie: "Jaka jest aktualnie najnowsza seria Iphone'a?", odpowiedzi: ["Iphone 16", "Iphone 17", "Iphone 18", "Iphone Omega"], poprawna: 1, media: "s225", x: true  },
-    { kategoria: "Między Bogiem a prawdą", pytanie: "Jaka cena jest uczciwa?", odpowiedzi: ["Gratis", "Za darmo", "Darmowo", "Friko"], poprawna: 0, media: "s228" },
+    { kategoria: "Między Bogiem a prawdą", pytanie: "Jaka cena jest uczciwa?", odpowiedzi: ["Gratis", "Za darmo", "Darmowo", "Friko"], poprawna: 0, media: "s228", x: true },
   ],
 
   trudne: [

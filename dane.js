@@ -68,7 +68,7 @@ zestaw1: {
     zestaw2: {
     latwe: [
     { kategoria: "Sztuka", pytanie: "Kto jest autorem tego obrazu?", odpowiedzi: ["Salvador Dali", "Zdzisław Beksiński", "Caravaggio", "Vincent van Gogh"], poprawna: 3, media: "l204" },
-    { kategoria: "Motoryzacja", pytanie: "Jakiej marki jest ten samochód?", odpowiedzi: ["Audi", "Mercedes", "BMW", "BYD"], poprawna: 2, media: "l209" },
+    { kategoria: "Motoryzacja", pytanie: "Jakiej marki jest ten samochód?", odpowiedzi: ["Audi", "Mercedes", "BMW", "BYD"], poprawna: 2, media: "l209", x: true },
     { kategoria: "Góry", pytanie: "Jaki jest najwyższy szczyt w Polsce?", odpowiedzi: ["Rysy", "Śnieżka", "Babia Góra", "Świnica"], poprawna: 0, media: "l210" },
     { kategoria: "Szczawnica", pytanie: "Kto znajduje się na tym zdjęciu?", odpowiedzi: ["Szafri", "Błasiu", "Jacek", "Igi"], poprawna: 2, media: "l212" , mediaOdkryte: "l212o" },
     { kategoria: "Szachy", pytanie: "Jest ruch białych, jaki ruch trzeba wykonać żeby dać mata w 1?", odpowiedzi: ["pion z d7 na d8 i promocja w hetmana", "hetman z e3 bije hetmana z e5", "hetman z e3 na a3", "pion z d7 bije gońca na c8 i promuje się w skoczka"], poprawna: 2, media: "l216" },
